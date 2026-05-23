@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36908.2 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gaming store", "Gaming store\Gaming store.csproj", "{35638971-9276-48A5-85B1-7732A98C01AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Data", "Gaming store\Game.Data.csproj", "{35638971-9276-48A5-85B1-7732A98C01AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Controllers", "Game.Controllers\Game.Controllers.csproj", "{ACA73D86-4283-48CD-A4FF-6E6DED0E6E38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Forms", "Game.Forms\Game.Forms.csproj", "{353EBC19-0480-4AC0-ADF8-09BE906084A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{35638971-9276-48A5-85B1-7732A98C01AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35638971-9276-48A5-85B1-7732A98C01AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35638971-9276-48A5-85B1-7732A98C01AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACA73D86-4283-48CD-A4FF-6E6DED0E6E38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACA73D86-4283-48CD-A4FF-6E6DED0E6E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACA73D86-4283-48CD-A4FF-6E6DED0E6E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACA73D86-4283-48CD-A4FF-6E6DED0E6E38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{353EBC19-0480-4AC0-ADF8-09BE906084A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{353EBC19-0480-4AC0-ADF8-09BE906084A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{353EBC19-0480-4AC0-ADF8-09BE906084A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{353EBC19-0480-4AC0-ADF8-09BE906084A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
