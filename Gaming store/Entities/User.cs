@@ -20,7 +20,6 @@ namespace Gaming_store.Entities
         public int CartId { get; set; }
         public Cart Cart { get; set; }        
         public int LibraryId { get; set; }
-        public Library Library { get; set; }
-        public ICollection<Game> Games { get; set; } = new List<Game>();
+        public Library Library { get; set; }        
     }
 }

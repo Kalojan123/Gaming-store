@@ -1,13 +1,14 @@
-﻿using Gaming_store;
+﻿using Gaming_store.Data;
 using Gaming_store.Entities;
 using Gaming_store.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game.Controllers
+namespace GamingStore.Controllers
 {
     public class UserController
     {
@@ -18,11 +19,11 @@ namespace Game.Controllers
         }
         public async Task<string> Register(string username, string password, string email, Roles role)
         {
-            if (context.Users.Any(u => u.Username == username))
+            if (await context.Users.AnyAsync(u => u.Username == username))
             {
                 return "Username already taken.";
             }
-            if (context.Users.Any(u => u.Email == email))
+            if (await context.Users.AnyAsync(u => u.Email == email))
             {
                 return "Email is already used.";
             }
@@ -34,13 +35,13 @@ namespace Game.Controllers
                 Balance = 0,
                 Role = role
             };
-            context.Users.Add(newUser);
+            await context.Users.AddAsync(newUser);
             await context.SaveChangesAsync();
             return "Registration successful.";
         }
         public async Task<string> Login(string username, string password)
         {
-            User user = context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+            User user = await context.Users.FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
             if (user == null)
             {
                 return "Invalid username or password.";
@@ -49,7 +50,7 @@ namespace Game.Controllers
         }
         public async Task<string> UpdateBalance(int userId, decimal amount)
         {
-            User user = await context.Users.FindAsync(userId);            
+            User user = await context.Users.FindAsync(userId);
             if (amount <= 0 && user.Balance + amount <= 0)
             {
                 return "Insufficient balance.";
@@ -57,21 +58,6 @@ namespace Game.Controllers
             user.Balance += amount;
             await context.SaveChangesAsync();
             return $"Balance updated. New balance: {user.Balance:C}.";
-        }
-        public async Task<string> AddGame(int userId, string gameName, Genres genre, decimal price, DateTime releaseDate)
-        {
-            User user = await context.Users.FindAsync(userId);            
-            Game newGame = new Game
-            {
-                Name = gameName,
-                Genre = genre,
-                Price = price,
-                ReleaseDate = releaseDate,
-                UserId = userId
-            };
-            context.Games.Add(newGame);
-            await context.SaveChangesAsync();
-            return $"Game '{gameName}' added successfully.";
-        }
+        }       
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Game.Controllers
+﻿namespace GamingStore.Controllers
 {
     internal class Program
     {

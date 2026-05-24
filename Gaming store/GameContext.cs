@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gaming_store
+namespace Gaming_store.Data
 {
     public class GameContext:DbContext
     {
@@ -31,7 +31,7 @@ namespace Gaming_store
         {
             modelBuilder.Entity<User>(u =>
             {
-                u.HasKey(u => u.Id);
+                u.HasKey(u => u.Id);                
                 u.HasOne(u => u.Wishlist).WithOne(w => w.User).HasForeignKey<User>(u => u.WishlistId);
                 u.HasOne(u => u.Cart).WithOne(c => c.User).HasForeignKey<User>(u => u.CartId);
                 u.HasOne(u => u.Library).WithOne(l => l.User).HasForeignKey<User>(u => u.LibraryId);
@@ -44,8 +44,7 @@ namespace Gaming_store
             });
             modelBuilder.Entity<Game>(g =>
             {
-                g.HasKey(g => g.Id);
-                g.HasOne(g => g.User).WithMany(u => u.Games).HasForeignKey(g => g.UserId);
+                g.HasKey(g => g.Id);                
                 g.Property(g => g.Name).IsUnicode().IsRequired().HasMaxLength(50);
                 g.Property(g => g.Genre).IsRequired().HasConversion<string>();
                 g.Property(g => g.Price).HasColumnType("decimal(5,2)");
@@ -56,19 +55,19 @@ namespace Gaming_store
             {
                 wg.HasKey(wg => new { wg.WishlistId, wg.GameId });
                 wg.HasOne(wg => wg.Wishlist).WithMany(w => w.WishlistsGames).HasForeignKey(wg => wg.WishlistId);
-                wg.HasOne(wg => wg.Game).WithMany(g => g.WishlistsGames).HasForeignKey(wg => wg.GameId);
+                wg.HasOne(wg => wg.Game).WithMany(g => g.WishlistsGames).HasForeignKey(wg => wg.GameId).OnDelete(DeleteBehavior.ClientSetNull);
             });
             modelBuilder.Entity<CartGame>(cg =>
             {
                 cg.HasKey(cg => new { cg.CartId, cg.GameId });
                 cg.HasOne(cg => cg.Cart).WithMany(c => c.CartsGames).HasForeignKey(cg => cg.CartId);
-                cg.HasOne(cg => cg.Game).WithMany(g => g.CartsGames).HasForeignKey(cg => cg.GameId);
+                cg.HasOne(cg => cg.Game).WithMany(g => g.CartsGames).HasForeignKey(cg => cg.GameId).OnDelete(DeleteBehavior.ClientSetNull);
             });
             modelBuilder.Entity<LibraryGame>(lg =>
             {
                 lg.HasKey(lg => new { lg.LibraryId, lg.GameId });
                 lg.HasOne(lg => lg.Library).WithMany(l => l.LibrariesGames).HasForeignKey(lg => lg.LibraryId);
-                lg.HasOne(lg => lg.Game).WithMany(g => g.LibrariesGames).HasForeignKey(lg => lg.GameId);
+                lg.HasOne(lg => lg.Game).WithMany(g => g.LibrariesGames).HasForeignKey(lg => lg.GameId).OnDelete(DeleteBehavior.ClientSetNull);
             });
         }
     }
