@@ -22,6 +22,7 @@ namespace Gaming_store.Forms
 
         private void GameInfo_Load(object sender, EventArgs e)
         {
+            BackgroundImage = ImageHandeler.ByteArrayToImage(ShowGame.CurrentGame.image);
             label5.Text = ShowGame.CurrentGame.Name;
             label4.Text = $"{ShowGame.CurrentGame.Genre}";
             label6.Text = $"{ShowGame.CurrentGame.Price:C}";
