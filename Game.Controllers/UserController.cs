@@ -17,6 +17,10 @@ namespace GamingStore.Controllers
         {
             context = new GameContext();
         }
+        public async Task<User> GetUserByName(string username)
+        {
+            return await context.Users.FirstAsync(u => u.Username == username); 
+        }
         public async Task<string> Register(string username, string password, string email, Roles role)
         {
             if (await context.Users.AnyAsync(u => u.Username == username))

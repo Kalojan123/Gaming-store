@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace Gaming_store.Data
 {
@@ -47,7 +49,8 @@ namespace Gaming_store.Data
                 g.HasKey(g => g.Id);                
                 g.Property(g => g.Name).IsUnicode().IsRequired().HasMaxLength(50);
                 g.Property(g => g.Genre).IsRequired().HasConversion<string>();
-                g.Property(g => g.Price).HasColumnType("decimal(5,2)");
+                g.Property(g => g.Price).HasColumnType("decimal(5,2)");                
+                g.Property(p => p.image).HasColumnType("image");
                 g.Property(g => g.ReleaseDate).IsRequired();
                 g.ToTable(g => g.HasCheckConstraint("Game_Price_CK", "[Price] > 0"));
             });
