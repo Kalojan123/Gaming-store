@@ -21,7 +21,7 @@ namespace GamingStore.Controllers
         {
             return await context.Users.FirstAsync(u => u.Username == username); 
         }
-        public async Task<string> Register(string username, string password, string email, Roles role)
+        public async Task<string> Register(string username, string password, string email)
         {
             if (await context.Users.AnyAsync(u => u.Username == username))
             {
@@ -31,14 +31,24 @@ namespace GamingStore.Controllers
             {
                 return "Email is already used.";
             }
-            User newUser = new User
+            User newUser = new User();
+            newUser.Username = username;
+            newUser.Password = password;
+            newUser.Email = email;
+            newUser.Balance = 0;
+            newUser.Role = Roles.User;
+            newUser.WishlistId = new Wishlist()
             {
-                Username = username,
-                Password = password,
-                Email = email,
-                Balance = 0,
-                Role = role
-            };
+                UserId = newUser.Id
+            }.Id;            
+            newUser.CartId = new Cart()
+            {
+                UserId = newUser.Id
+            }.Id;
+            newUser.LibraryId = new Library()
+            {
+                UserId = newUser.Id
+            }.Id;
             await context.Users.AddAsync(newUser);
             await context.SaveChangesAsync();
             return "Registration successful.";
@@ -54,14 +64,10 @@ namespace GamingStore.Controllers
         }
         public async Task<string> UpdateBalance(int userId, decimal amount)
         {
-            User user = await context.Users.FindAsync(userId);
-            if (amount <= 0 && user.Balance + amount <= 0)
-            {
-                return "Insufficient balance.";
-            }
+            User user = await context.Users.FindAsync(userId);            
             user.Balance += amount;
             await context.SaveChangesAsync();
-            return $"Balance updated. New balance: {user.Balance:C}.";
+            return $"Balance updated.";
         }       
     }
 }

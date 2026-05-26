@@ -1,6 +1,6 @@
 ﻿namespace Gaming_store.Forms
 {
-    partial class ShowGame
+    partial class ShowCart
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,28 +29,40 @@
         private void InitializeComponent()
         {
             pictureBox1 = new PictureBox();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
             // 
+            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
             pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(80, 80);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
+            pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
-            // ShowGame
+            // button1
+            // 
+            button1.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button1.Location = new Point(3, 86);
+            button1.Name = "button1";
+            button1.Size = new Size(74, 29);
+            button1.TabIndex = 2;
+            button1.Text = "Purchase";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // ShowCart
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(button1);
             Controls.Add(pictureBox1);
-            Margin = new Padding(3, 4, 3, 4);
-            Name = "ShowGame";
-            Size = new Size(80, 80);
+            Name = "ShowCart";
+            Size = new Size(80, 120);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
@@ -58,5 +70,6 @@
         #endregion
 
         private PictureBox pictureBox1;
+        private Button button1;
     }
 }

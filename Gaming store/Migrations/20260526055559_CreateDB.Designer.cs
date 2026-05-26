@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gaming_store.Migrations
 {
     [DbContext(typeof(GameContext))]
-    [Migration("20260525140458_CreateDB")]
+    [Migration("20260526055559_CreateDB")]
     partial class CreateDB
     {
         /// <inheritdoc />

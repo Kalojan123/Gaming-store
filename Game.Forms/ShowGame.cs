@@ -23,11 +23,18 @@ namespace Gaming_store.Forms
         }        
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            CurrentGame = Game;
-            GameInfo gameInfo = new GameInfo();
-            gameInfo.ShowDialog();
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.Hide();
+            if (LogInForm.CurrentUser != null)
+            {
+                CurrentGame = Game;
+                GameInfo gameInfo = new GameInfo();
+                gameInfo.ShowDialog();
+                MainMenu mainMenu = new MainMenu();
+                mainMenu.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Please log in or register to view game details.");
+            }
         }
     }
 }

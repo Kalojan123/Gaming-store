@@ -16,11 +16,7 @@ namespace GamingStore.Controllers
         public GameController()
         {
             context = new GameContext();
-        }      
-        public async Task<List<Game>> GetAllGames()
-        {
-            return await context.Games.ToListAsync();
-        }
+        }     
         public async Task<string> AddGame(string gameName, Genres genre, decimal price, DateTime releaseDate)
         {
             Game game = new Game
