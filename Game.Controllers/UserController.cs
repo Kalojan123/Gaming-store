@@ -36,19 +36,7 @@ namespace GamingStore.Controllers
             newUser.Password = password;
             newUser.Email = email;
             newUser.Balance = 0;
-            newUser.Role = Roles.User;
-            newUser.WishlistId = new Wishlist()
-            {
-                UserId = newUser.Id
-            }.Id;            
-            newUser.CartId = new Cart()
-            {
-                UserId = newUser.Id
-            }.Id;
-            newUser.LibraryId = new Library()
-            {
-                UserId = newUser.Id
-            }.Id;
+            newUser.Role = Roles.User;            
             await context.Users.AddAsync(newUser);
             await context.SaveChangesAsync();
             return "Registration successful.";

@@ -33,10 +33,7 @@ namespace Gaming_store.Data
         {
             modelBuilder.Entity<User>(u =>
             {
-                u.HasKey(u => u.Id);                
-                u.HasOne(u => u.Wishlist).WithOne(w => w.User).HasForeignKey<User>(u => u.WishlistId);
-                u.HasOne(u => u.Cart).WithOne(c => c.User).HasForeignKey<User>(u => u.CartId);
-                u.HasOne(u => u.Library).WithOne(l => l.User).HasForeignKey<User>(u => u.LibraryId);
+                u.HasKey(u => u.Id);
                 u.Property(u => u.Username).IsUnicode().IsRequired().HasMaxLength(30);
                 u.Property(u => u.Password).IsUnicode().IsRequired().HasMaxLength(30);
                 u.Property(u => u.Email).IsUnicode().IsRequired().HasMaxLength(50);
@@ -50,13 +47,25 @@ namespace Gaming_store.Data
                 g.Property(g => g.Name).IsUnicode().IsRequired().HasMaxLength(50);
                 g.Property(g => g.Genre).IsRequired().HasConversion<string>();
                 g.Property(g => g.Price).HasColumnType("decimal(5,2)");                
-                g.Property(p => p.image).HasColumnType("image");
-                g.Property(g => g.ReleaseDate).IsRequired();
+                g.Property(p => p.image).HasColumnType("image");                
+                g.Property(g => g.ReleaseDate).HasColumnType("date").IsRequired();
                 g.ToTable(g => g.HasCheckConstraint("Game_Price_CK", "[Price] > 0"));
+            });
+            modelBuilder.Entity<Wishlist>(g =>
+            {
+                g.HasOne(u => u.User).WithOne(w => w.Wishlist).HasForeignKey<Wishlist>(u => u.UserId);                
+            });
+            modelBuilder.Entity<Cart>(g =>
+            {
+                g.HasOne(u => u.User).WithOne(c => c.Cart).HasForeignKey<Cart>(u => u.UserId);                
+            });
+            modelBuilder.Entity<Library>(g =>
+            {
+                g.HasOne(u => u.User).WithOne(l => l.Library).HasForeignKey<Library>(u => u.UserId);
             });
             modelBuilder.Entity<WishlistGame>(wg =>
             {
-                wg.HasKey(wg => new { wg.WishlistId, wg.GameId });
+                wg.HasKey(wg => new { wg.WishlistId, wg.GameId });                
                 wg.HasOne(wg => wg.Wishlist).WithMany(w => w.WishlistsGames).HasForeignKey(wg => wg.WishlistId);
                 wg.HasOne(wg => wg.Game).WithMany(g => g.WishlistsGames).HasForeignKey(wg => wg.GameId).OnDelete(DeleteBehavior.ClientSetNull);
             });

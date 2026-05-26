@@ -26,14 +26,14 @@ namespace Gaming_store.Forms
             if (LogInForm.CurrentUser != null)
             {
                 CurrentGame = Game;
-                GameInfo gameInfo = new GameInfo();
+                GameInfo gameInfo = new GameInfo(CurrentGame);
                 gameInfo.ShowDialog();
                 MainMenu mainMenu = new MainMenu();
                 mainMenu.Hide();
             }
             else
             {
-                MessageBox.Show("Please log in or register to view game details.");
+                MessageBox.Show("Please sign in or register to view game details.");
             }
         }
     }

@@ -27,7 +27,7 @@ namespace Gaming_store.Forms
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             CurrentGame = game;
-            GameInfo gameInfo = new GameInfo();
+            GameInfo gameInfo = new GameInfo(CurrentGame);
             gameInfo.ShowDialog();
             CartForm cartForm = new CartForm();
             cartForm.Hide();
@@ -45,12 +45,7 @@ namespace Gaming_store.Forms
                 return;
             }
             MessageBox.Show(output);
-            string output2 = await cart.RemoveFromCart(LogInForm.CurrentUser.Id, CurrentGame.Id);
-            if(output2 == "Game not found in cart.")
-            {
-                MessageBox.Show(output2);
-                return;
-            }
+            string output2 = await cart.RemoveFromCart(LogInForm.CurrentUser.Id, CurrentGame.Id);           
             MessageBox.Show(output2);
         }
     }

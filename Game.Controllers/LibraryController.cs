@@ -15,16 +15,7 @@ namespace GamingStore.Controllers
         public LibraryController()
         {
             context = new GameContext();
-        }
-        public async Task<List<LibraryGame>> GetUserGames(int userId)
-        {
-            Library library = await context.Libraries.FirstOrDefaultAsync(l => l.UserId == userId);
-            if (library == null)
-            {
-                return new List<LibraryGame>();
-            }
-            return library.LibrariesGames.ToList();
-        }
+        }        
         public async Task<string> AddToLibrary(int userId, int gameId)
         {
             User user = await context.Users.FindAsync(userId);

@@ -1,4 +1,5 @@
 ﻿using Gaming_store.Entities;
+using Gaming_store.Enums;
 using GamingStore.Controllers;
 using System;
 using System.Collections.Generic;
@@ -39,12 +40,26 @@ namespace Gaming_store.Forms
             {
                 MessageBox.Show(text, "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);    
                 CurrentUser = await userController.GetUserByName(textBox1.Text);
-                Hide();
+                if (CurrentUser.Role == Roles.User)
+                {
+                    MainMenu mainMenu = new MainMenu();
+                    mainMenu.Hiddenbuttons();
+                    mainMenu.Show();
+                    Hide();
+                }
+                else
+                {
+                    AdminForm adminForm = new AdminForm();
+                    adminForm.Show();
+                    Hide();
+                }
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {            
+        {
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Show();
             Hide();
         }
     }

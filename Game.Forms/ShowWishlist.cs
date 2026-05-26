@@ -1,5 +1,6 @@
 ﻿using Gaming_store.Entities;
 using Gaming_store.Forms;
+using GamingStore.Controllers;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -26,17 +27,23 @@ namespace Gaming_store.Forms
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
-        {
+        {            
             currentGame = game;
-            GameInfo gameInfo = new GameInfo();
+            GameInfo gameInfo = new GameInfo(currentGame);
             gameInfo.ShowDialog();
             WishlistForm wishlistForm = new WishlistForm();
-            wishlistForm.Hide();
+            wishlistForm.Hide();         
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-
+            currentGame = game;
+            CartController cart = new CartController();
+            WishlistController wishlist = new WishlistController();
+            string result = await cart.AddToCart(LogInForm.CurrentUser.Id, currentGame.Id);           
+            MessageBox.Show(result);
+            result = await wishlist.RemoveFromWishlist(LogInForm.CurrentUser.Id, currentGame.Id);            
+            MessageBox.Show(result);
         }
     }
 }

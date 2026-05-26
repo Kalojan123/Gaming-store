@@ -1,4 +1,5 @@
-﻿using GamingStore.Controllers;
+﻿using Gaming_store.Entities;
+using GamingStore.Controllers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,20 +16,23 @@ namespace Gaming_store.Forms
     {
         private WishlistController wishlistController;
         private CartController cartController;
-        public GameInfo()
+        private Game CurrentGame;
+        public GameInfo(Game game)
         {
             InitializeComponent();
             wishlistController = new WishlistController();
             cartController = new CartController();
+            CurrentGame = new Game();
+            CurrentGame = game;
         }
 
         private void GameInfo_Load(object sender, EventArgs e)
         {
-            BackgroundImage = ImageHandeler.ByteArrayToImage(ShowGame.CurrentGame.image);
-            label5.Text = ShowGame.CurrentGame.Name;
-            label4.Text = $"{ShowGame.CurrentGame.Genre}";
-            label6.Text = $"{ShowGame.CurrentGame.Price:C}";
-            label7.Text = $"{ShowGame.CurrentGame.ReleaseDate}";
+            BackgroundImage = ImageHandeler.ByteArrayToImage(CurrentGame.image);
+            label5.Text = CurrentGame.Name;
+            label4.Text = $"{CurrentGame.Genre}";
+            label6.Text = $"{CurrentGame.Price:C}";
+            label7.Text = $"{CurrentGame.ReleaseDate}";
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -38,7 +42,7 @@ namespace Gaming_store.Forms
                 MessageBox.Show("Please sign in to add games to your wishlist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            MessageBox.Show(await wishlistController.AddToWishlist(LogInForm.CurrentUser.Id, ShowGame.CurrentGame.Id));
+            MessageBox.Show(await wishlistController.AddToWishlist(LogInForm.CurrentUser.Id, CurrentGame.Id));
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -55,7 +59,7 @@ namespace Gaming_store.Forms
                 MessageBox.Show("Please sign in to add games to your cart.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            MessageBox.Show(await cartController.AddToCart(LogInForm.CurrentUser.Id, ShowGame.CurrentGame.Id));
+            MessageBox.Show(await cartController.AddToCart(LogInForm.CurrentUser.Id, CurrentGame.Id));
         }
     }
 }

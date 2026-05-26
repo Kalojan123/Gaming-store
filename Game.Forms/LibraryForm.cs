@@ -1,4 +1,5 @@
 ﻿using Gaming_store.Entities;
+using Gaming_store.Enums;
 using Gaming_store.Forms;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace GamingStore.Forms
             {
                 foreach (Game game in LogInForm.CurrentUser.Library.LibrariesGames.Select(x => x.Game))
                 {
-                    ShowLibrary showLibrary = new ShowLibrary();
+                    ShowLibrary showLibrary = new ShowLibrary(game);
                     flowLayoutPanel1.Controls.Add(showLibrary);
                 }
             }
@@ -39,9 +40,70 @@ namespace GamingStore.Forms
             }
         }
 
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
+            flowLayoutPanel1.Controls.Clear();
+            if (textBox1.Text != null)
+            {
+                List<Game> games = new List<Game>();
+                games = LogInForm.CurrentUser.Library.LibrariesGames.Select(g => g.Game).Where(g => g.Name.Contains(textBox1.Text)).ToList();
+                if (games.Count == 0)
+                {
+                    MessageBox.Show("No games found with that name.");
+                    return;
+                }
+                foreach (Game game in games)
+                {
+                    ShowLibrary showLibrary = new ShowLibrary(game);
+                    flowLayoutPanel1.Controls.Add(showLibrary);
+                }
+            }
+        }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            if (LogInForm.CurrentUser.Library != null)
+            {
+                foreach (Game game in LogInForm.CurrentUser.Library.LibrariesGames.Select(g => g.Game))
+                {
+                    ShowLibrary showLibrary = new ShowLibrary(game);
+                    flowLayoutPanel1.Controls.Add(showLibrary);
+                }
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            if (textBox1.Text != null)
+            {
+                List<Game> games = new List<Game>();
+                games = LogInForm.CurrentUser.Library.LibrariesGames.Select(g => g.Game).Where(g => g.Genre == (Genres)comboBox1.SelectedItem).ToList();
+                if (games.Count == 0)
+                {
+                    MessageBox.Show("No games found with that genre.");
+                    return;
+                }
+                foreach (Game game in games)
+                {
+                    ShowLibrary showLibrary = new ShowLibrary(game);
+                    flowLayoutPanel1.Controls.Add(showLibrary);
+                }
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            if (LogInForm.CurrentUser.Library != null)
+            {
+                foreach (Game game in LogInForm.CurrentUser.Library.LibrariesGames.Select(g => g.Game))
+                {
+                    ShowLibrary showLibrary = new ShowLibrary(game);
+                    flowLayoutPanel1.Controls.Add(showLibrary);
+                }
+            }
         }
     }
 }

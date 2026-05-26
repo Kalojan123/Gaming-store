@@ -12,6 +12,42 @@ namespace Gaming_store.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Games",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
+                    image = table.Column<byte[]>(type: "image", nullable: false),
+                    ReleaseDate = table.Column<DateOnly>(type: "date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Games", x => x.Id);
+                    table.CheckConstraint("Game_Price_CK", "[Price] > 0");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Balance = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.CheckConstraint("User_Balance_CK", "[Balance] >= 0");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Carts",
                 columns: table => new
                 {
@@ -22,24 +58,12 @@ namespace Gaming_store.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Carts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Games",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
-                    image = table.Column<byte[]>(type: "image", nullable: false),
-                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Games", x => x.Id);
-                    table.CheckConstraint("Game_Price_CK", "[Price] > 0");
+                    table.ForeignKey(
+                        name: "FK_Carts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,6 +77,12 @@ namespace Gaming_store.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Libraries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Libraries_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,6 +96,12 @@ namespace Gaming_store.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Wishlists", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Wishlists_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -115,45 +151,6 @@ namespace Gaming_store.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Balance = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WishlistId = table.Column<int>(type: "int", nullable: false),
-                    CartId = table.Column<int>(type: "int", nullable: false),
-                    LibraryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.CheckConstraint("User_Balance_CK", "[Balance] >= 0");
-                    table.ForeignKey(
-                        name: "FK_Users_Carts_CartId",
-                        column: x => x.CartId,
-                        principalTable: "Carts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Users_Libraries_LibraryId",
-                        column: x => x.LibraryId,
-                        principalTable: "Libraries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Users_Wishlists_WishlistId",
-                        column: x => x.WishlistId,
-                        principalTable: "Wishlists",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "WishlistGames",
                 columns: table => new
                 {
@@ -182,32 +179,32 @@ namespace Gaming_store.Migrations
                 column: "GameId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Carts_UserId",
+                table: "Carts",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Libraries_UserId",
+                table: "Libraries",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LibraryGames_GameId",
                 table: "LibraryGames",
                 column: "GameId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_CartId",
-                table: "Users",
-                column: "CartId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_LibraryId",
-                table: "Users",
-                column: "LibraryId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_WishlistId",
-                table: "Users",
-                column: "WishlistId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_WishlistGames_GameId",
                 table: "WishlistGames",
                 column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Wishlists_UserId",
+                table: "Wishlists",
+                column: "UserId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -218,9 +215,6 @@ namespace Gaming_store.Migrations
 
             migrationBuilder.DropTable(
                 name: "LibraryGames");
-
-            migrationBuilder.DropTable(
-                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "WishlistGames");
@@ -236,6 +230,9 @@ namespace Gaming_store.Migrations
 
             migrationBuilder.DropTable(
                 name: "Wishlists");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

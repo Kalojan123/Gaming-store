@@ -1,5 +1,6 @@
 ﻿using Gaming_store.Entities;
 using Gaming_store.Forms;
+using GamingStore.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,9 +15,13 @@ namespace Gaming_store.Forms
 {
     public partial class ShowLibrary : UserControl
     {        
-        public ShowLibrary()
+        private Game game;
+        public static Game CurrentGame { get; set; } 
+        public ShowLibrary(Game Game)
         {
             InitializeComponent();
+            game = new Game();
+            game = Game;
         }        
 
         private void ShowLibrary_Load(object sender, EventArgs e)
@@ -25,8 +30,9 @@ namespace Gaming_store.Forms
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
-        {            
-            GameInfo gameInfo = new GameInfo();
+        {           
+            CurrentGame = game;
+            GameInfo gameInfo = new GameInfo(CurrentGame);
             gameInfo.ShowDialog();
             LibraryForm libraryForm = new LibraryForm();
             libraryForm.Hide();

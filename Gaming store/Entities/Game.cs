@@ -14,7 +14,7 @@ namespace Gaming_store.Entities
         public Genres Genre { get; set; }
         public decimal Price { get; set; }
         public byte[] image { get; set; }
-        public DateTime ReleaseDate { get; set; }        
+        public DateOnly ReleaseDate { get; set; }        
         public ICollection<WishlistGame> WishlistsGames { get; set; } = new List<WishlistGame>();
         public ICollection<CartGame> CartsGames { get; set; } = new List<CartGame>();        
         public ICollection<LibraryGame> LibrariesGames { get; set; } = new List<LibraryGame>();

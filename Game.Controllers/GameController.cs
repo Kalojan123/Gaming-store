@@ -17,13 +17,14 @@ namespace GamingStore.Controllers
         {
             context = new GameContext();
         }     
-        public async Task<string> AddGame(string gameName, Genres genre, decimal price, DateTime releaseDate)
+        public async Task<string> AddGame(string gameName, Genres genre, decimal price, byte[] image, DateOnly releaseDate)
         {
             Game game = new Game
             {
                 Name = gameName,
                 Genre = genre,
                 Price = price,
+                image = image,
                 ReleaseDate = releaseDate
             };
             await context.Games.AddAsync(game);

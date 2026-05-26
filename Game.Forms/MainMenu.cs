@@ -13,7 +13,7 @@ namespace Gaming_store.Forms
         {
             InitializeComponent();
             context = new GameContext();
-        }
+        }        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -30,7 +30,8 @@ namespace Gaming_store.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             LogInForm logInForm = new LogInForm();
-            logInForm.ShowDialog();
+            logInForm.Show();
+            Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -55,6 +56,11 @@ namespace Gaming_store.Forms
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (LogInForm.CurrentUser.Library == null)
+            {
+                MessageBox.Show("There are no games in the library!");
+                return;
+            }
             if (LogInForm.CurrentUser != null)
             {
                 LibraryForm libraryForm = new LibraryForm();
@@ -135,6 +141,11 @@ namespace Gaming_store.Forms
 
         private void button8_Click(object sender, EventArgs e)
         {
+            if(LogInForm.CurrentUser.Wishlist == null)
+            {
+                MessageBox.Show("There are no games in the wishlist!");
+                return;
+            }
             if (LogInForm.CurrentUser != null)
             {
                 WishlistForm wishlistForm = new WishlistForm();
@@ -149,16 +160,26 @@ namespace Gaming_store.Forms
 
         private void button9_Click(object sender, EventArgs e)
         {
+            if (LogInForm.CurrentUser.Cart == null)
+            {
+                MessageBox.Show("There are no games in the cart!");
+                return;
+            }
             if (LogInForm.CurrentUser != null)
             {
-                WishlistForm wishlistForm = new WishlistForm();
-                wishlistForm.ShowDialog();
+                CartForm cartForm = new CartForm();
+                cartForm.ShowDialog();
                 Hide();
             }
             else
             {
                 MessageBox.Show("Please sign in or register to view your wishlist.");
             }
+        }    
+        public void Hiddenbuttons()
+        {
+            button1.Visible = false;
+            button2.Visible = false;
         }
     }
 }

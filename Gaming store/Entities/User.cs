@@ -14,12 +14,9 @@ namespace Gaming_store.Entities
         public string Password { get; set; }
         public string Email { get; set; }       
         public decimal Balance { get; set; }
-        public Roles Role { get; set; }
-        public int WishlistId { get; set; }
-        public Wishlist Wishlist { get; set; }
-        public int CartId { get; set; }
-        public Cart Cart { get; set; }        
-        public int LibraryId { get; set; }
+        public Roles Role { get; set; }        
+        public Wishlist Wishlist { get; set; }        
+        public Cart Cart { get; set; }                
         public Library Library { get; set; }        
     }
 }

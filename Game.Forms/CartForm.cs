@@ -1,4 +1,5 @@
 ﻿using Gaming_store.Entities;
+using Gaming_store.Enums;
 using Gaming_store.Forms;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace Gaming_store.Forms
             label1.Text = $"Welcome to your cart, {LogInForm.CurrentUser.Username}!";
             if (LogInForm.CurrentUser.Cart.CartsGames != null)
             {
-                foreach (Game game in LogInForm.CurrentUser.Cart.CartsGames.Select(x => x.Game))
+                foreach (Game game in LogInForm.CurrentUser.Cart.CartsGames.Select(g => g.Game))
                 {
                     ShowCart showCart = new ShowCart(game);
                     flowLayoutPanel1.Controls.Add(showCart);
@@ -36,6 +37,72 @@ namespace Gaming_store.Forms
                 Hide();
                 MainMenu mainMenu = new MainMenu();
                 mainMenu.ShowDialog();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            if (textBox1.Text != null)
+            {
+                List<Game> games = new List<Game>();
+                games = LogInForm.CurrentUser.Cart.CartsGames.Select(g => g.Game).Where(g => g.Name.Contains(textBox1.Text)).ToList();
+                if (games.Count == 0)
+                {
+                    MessageBox.Show("No games found with that name.");
+                    return;
+                }
+                foreach (Game game in games)
+                {
+                    ShowCart showCart = new ShowCart(game);
+                    flowLayoutPanel1.Controls.Add(showCart);
+                }
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            if (LogInForm.CurrentUser.Cart != null)
+            {
+                foreach (Game game in LogInForm.CurrentUser.Cart.CartsGames.Select(g => g.Game))
+                {
+                    ShowCart showCart = new ShowCart(game);
+                    flowLayoutPanel1.Controls.Add(showCart);
+                }
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            if (textBox1.Text != null)
+            {
+                List<Game> games = new List<Game>();
+                games = LogInForm.CurrentUser.Cart.CartsGames.Select(g => g.Game).Where(g => g.Genre == (Genres)comboBox1.SelectedItem).ToList();
+                if (games.Count == 0)
+                {
+                    MessageBox.Show("No games found with that genre.");
+                    return;
+                }
+                foreach (Game game in games)
+                {
+                    ShowCart showCart = new ShowCart(game);
+                    flowLayoutPanel1.Controls.Add(showCart);
+                }
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            if (LogInForm.CurrentUser.Cart != null)
+            {
+                foreach (Game game in LogInForm.CurrentUser.Cart.CartsGames.Select(g => g.Game))
+                {
+                    ShowCart showCart = new ShowCart(game);
+                    flowLayoutPanel1.Controls.Add(showCart);
+                }
             }
         }
     }

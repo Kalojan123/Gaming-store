@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gaming_store.Migrations
 {
     [DbContext(typeof(GameContext))]
-    [Migration("20260526055559_CreateDB")]
+    [Migration("20260526211124_CreateDB")]
     partial class CreateDB
     {
         /// <inheritdoc />
@@ -37,6 +37,9 @@ namespace Gaming_store.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Carts");
                 });
@@ -77,8 +80,8 @@ namespace Gaming_store.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(5,2)");
 
-                    b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("ReleaseDate")
+                        .HasColumnType("date");
 
                     b.Property<byte[]>("image")
                         .IsRequired()
@@ -104,6 +107,9 @@ namespace Gaming_store.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Libraries");
                 });
@@ -134,17 +140,11 @@ namespace Gaming_store.Migrations
                     b.Property<decimal>("Balance")
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("LibraryId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -162,19 +162,7 @@ namespace Gaming_store.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("WishlistId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CartId")
-                        .IsUnique();
-
-                    b.HasIndex("LibraryId")
-                        .IsUnique();
-
-                    b.HasIndex("WishlistId")
-                        .IsUnique();
 
                     b.ToTable("Users", t =>
                         {
@@ -195,6 +183,9 @@ namespace Gaming_store.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("Wishlists");
                 });
 
@@ -211,6 +202,17 @@ namespace Gaming_store.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("WishlistGames");
+                });
+
+            modelBuilder.Entity("Gaming_store.Entities.Cart", b =>
+                {
+                    b.HasOne("Gaming_store.Entities.User", "User")
+                        .WithOne("Cart")
+                        .HasForeignKey("Gaming_store.Entities.Cart", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Gaming_store.Entities.CartGame", b =>
@@ -231,6 +233,17 @@ namespace Gaming_store.Migrations
                     b.Navigation("Game");
                 });
 
+            modelBuilder.Entity("Gaming_store.Entities.Library", b =>
+                {
+                    b.HasOne("Gaming_store.Entities.User", "User")
+                        .WithOne("Library")
+                        .HasForeignKey("Gaming_store.Entities.Library", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Gaming_store.Entities.LibraryGame", b =>
                 {
                     b.HasOne("Gaming_store.Entities.Game", "Game")
@@ -249,31 +262,15 @@ namespace Gaming_store.Migrations
                     b.Navigation("Library");
                 });
 
-            modelBuilder.Entity("Gaming_store.Entities.User", b =>
+            modelBuilder.Entity("Gaming_store.Entities.Wishlist", b =>
                 {
-                    b.HasOne("Gaming_store.Entities.Cart", "Cart")
-                        .WithOne("User")
-                        .HasForeignKey("Gaming_store.Entities.User", "CartId")
+                    b.HasOne("Gaming_store.Entities.User", "User")
+                        .WithOne("Wishlist")
+                        .HasForeignKey("Gaming_store.Entities.Wishlist", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Gaming_store.Entities.Library", "Library")
-                        .WithOne("User")
-                        .HasForeignKey("Gaming_store.Entities.User", "LibraryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Gaming_store.Entities.Wishlist", "Wishlist")
-                        .WithOne("User")
-                        .HasForeignKey("Gaming_store.Entities.User", "WishlistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Library");
-
-                    b.Navigation("Wishlist");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Gaming_store.Entities.WishlistGame", b =>
@@ -297,9 +294,6 @@ namespace Gaming_store.Migrations
             modelBuilder.Entity("Gaming_store.Entities.Cart", b =>
                 {
                     b.Navigation("CartsGames");
-
-                    b.Navigation("User")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Gaming_store.Entities.Game", b =>
@@ -314,16 +308,22 @@ namespace Gaming_store.Migrations
             modelBuilder.Entity("Gaming_store.Entities.Library", b =>
                 {
                     b.Navigation("LibrariesGames");
+                });
 
-                    b.Navigation("User")
+            modelBuilder.Entity("Gaming_store.Entities.User", b =>
+                {
+                    b.Navigation("Cart")
+                        .IsRequired();
+
+                    b.Navigation("Library")
+                        .IsRequired();
+
+                    b.Navigation("Wishlist")
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Gaming_store.Entities.Wishlist", b =>
                 {
-                    b.Navigation("User")
-                        .IsRequired();
-
                     b.Navigation("WishlistsGames");
                 });
 #pragma warning restore 612, 618
