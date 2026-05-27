@@ -16,6 +16,10 @@ namespace GamingStore.Controllers
         public UserController()
         {
             context = new GameContext();
+        }        
+        public UserController(GameContext Context)
+        {
+            context = Context;
         }
         public async Task<User> GetUserByName(string username)
         {
@@ -25,7 +29,7 @@ namespace GamingStore.Controllers
         {
             if (await context.Users.AnyAsync(u => u.Username == username))
             {
-                return "Username already taken.";
+                return "Username is already taken.";
             }
             if (await context.Users.AnyAsync(u => u.Email == email))
             {

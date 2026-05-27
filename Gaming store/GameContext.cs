@@ -13,6 +13,14 @@ namespace Gaming_store.Data
 {
     public class GameContext:DbContext
     {
+        public GameContext()
+        {
+
+        }
+        public GameContext(DbContextOptions<GameContext> options) : base(options)
+        {
+
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
@@ -23,11 +31,14 @@ namespace Gaming_store.Data
         public DbSet<LibraryGame> LibraryGames { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var builder = new ConfigurationBuilder();
-            builder.AddJsonFile("connectionString.json");
-            var config = builder.Build();
-            string connectionString = config.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer(connectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+                var builder = new ConfigurationBuilder();
+                builder.AddJsonFile("connectionString.json");
+                var config = builder.Build();
+                string connectionString = config.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(connectionString);
+            }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

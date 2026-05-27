@@ -1,4 +1,5 @@
-﻿using Gaming_store.Enums;
+﻿using Gaming_store.Data;
+using Gaming_store.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace Gaming_store.Entities
 {
     public class User
-    {
+    {       
         public int Id { get; set; }       
         public string Username { get; set; }
         public string Password { get; set; }
