@@ -25,7 +25,8 @@ namespace Gaming_store.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            RemoveGameForm removeGameForm = new RemoveGameForm();
+            removeGameForm.ShowDialog();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -33,6 +34,11 @@ namespace Gaming_store.Forms
             Hide();
             MainMenu mainMenu = new MainMenu();
             mainMenu.ShowDialog();
+        }
+
+        private void AdminForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

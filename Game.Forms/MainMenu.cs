@@ -55,14 +55,14 @@ namespace Gaming_store.Forms
         }
 
         private void button4_Click(object sender, EventArgs e)
-        {
-            if (LogInForm.CurrentUser.Library == null)
-            {
-                MessageBox.Show("There are no games in the library!");
-                return;
-            }
+        {            
             if (LogInForm.CurrentUser != null)
             {
+                if (LogInForm.CurrentUser.Library == null)
+                {
+                    MessageBox.Show("There are no games in the library!");
+                    return;
+                }
                 LibraryForm libraryForm = new LibraryForm();
                 libraryForm.ShowDialog();
                 Hide();
@@ -140,14 +140,14 @@ namespace Gaming_store.Forms
         }
 
         private void button8_Click(object sender, EventArgs e)
-        {
-            if(LogInForm.CurrentUser.Wishlist == null)
-            {
-                MessageBox.Show("There are no games in the wishlist!");
-                return;
-            }
+        {            
             if (LogInForm.CurrentUser != null)
             {
+                if (LogInForm.CurrentUser.Wishlist == null)
+                {
+                    MessageBox.Show("There are no games in the wishlist!");
+                    return;
+                }
                 WishlistForm wishlistForm = new WishlistForm();
                 wishlistForm.ShowDialog();
                 Hide();
@@ -159,27 +159,32 @@ namespace Gaming_store.Forms
         }
 
         private void button9_Click(object sender, EventArgs e)
-        {
-            if (LogInForm.CurrentUser.Cart == null)
-            {
-                MessageBox.Show("There are no games in the cart!");
-                return;
-            }
+        {            
             if (LogInForm.CurrentUser != null)
             {
+                if (LogInForm.CurrentUser.Cart == null)
+                {
+                    MessageBox.Show("There are no games in the cart!");
+                    return;
+                }
                 CartForm cartForm = new CartForm();
                 cartForm.ShowDialog();
                 Hide();
             }
             else
             {
-                MessageBox.Show("Please sign in or register to view your wishlist.");
+                MessageBox.Show("Please sign in or register to view your cart.");
             }
         }    
         public void Hiddenbuttons()
         {
             button1.Visible = false;
             button2.Visible = false;
+        }
+        public void ShowDiscount(Game game)
+        {
+            ShowGameDiscount showGameDiscount = new ShowGameDiscount(game);
+            showGameDiscount.Show(); 
         }
     }
 }

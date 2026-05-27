@@ -23,7 +23,7 @@ namespace Gaming_store.Forms
         }        
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if (LogInForm.CurrentUser != null)
+            if (LogInForm.CurrentUser != null && LogInForm.CurrentUser.Username != "john123")
             {
                 CurrentGame = Game;
                 GameInfo gameInfo = new GameInfo(CurrentGame);

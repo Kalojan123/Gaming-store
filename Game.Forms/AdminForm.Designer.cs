@@ -42,9 +42,10 @@
             button8.FlatAppearance.MouseOverBackColor = Color.White;
             button8.FlatStyle = FlatStyle.Flat;
             button8.Font = new Font("Arial Black", 12F, FontStyle.Bold | FontStyle.Italic);
-            button8.Location = new Point(346, 152);
+            button8.Location = new Point(395, 203);
+            button8.Margin = new Padding(3, 4, 3, 4);
             button8.Name = "button8";
-            button8.Size = new Size(109, 48);
+            button8.Size = new Size(125, 64);
             button8.TabIndex = 12;
             button8.Text = "Add game";
             button8.UseVisualStyleBackColor = false;
@@ -57,9 +58,10 @@
             button1.FlatAppearance.MouseOverBackColor = Color.White;
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Arial Black", 12F, FontStyle.Bold | FontStyle.Italic);
-            button1.Location = new Point(326, 230);
+            button1.Location = new Point(373, 307);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(148, 48);
+            button1.Size = new Size(169, 64);
             button1.TabIndex = 13;
             button1.Text = "Remove game";
             button1.UseVisualStyleBackColor = false;
@@ -72,9 +74,10 @@
             button2.FlatAppearance.MouseOverBackColor = Color.White;
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Arial Black", 12F, FontStyle.Bold | FontStyle.Italic);
-            button2.Location = new Point(277, 311);
+            button2.Location = new Point(317, 415);
+            button2.Margin = new Padding(3, 4, 3, 4);
             button2.Name = "button2";
-            button2.Size = new Size(247, 48);
+            button2.Size = new Size(282, 64);
             button2.TabIndex = 14;
             button2.Text = "Change price of a game";
             button2.UseVisualStyleBackColor = false;
@@ -84,9 +87,9 @@
             label4.AutoSize = true;
             label4.BackColor = Color.Orange;
             label4.Font = new Font("Arial Black", 12F, FontStyle.Bold);
-            label4.Location = new Point(306, 58);
+            label4.Location = new Point(350, 77);
             label4.Name = "label4";
-            label4.Size = new Size(189, 23);
+            label4.Size = new Size(237, 28);
             label4.TabIndex = 26;
             label4.Text = "Hello, administrator!";
             // 
@@ -97,9 +100,10 @@
             button3.FlatAppearance.MouseOverBackColor = Color.White;
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Arial Black", 12F, FontStyle.Bold | FontStyle.Italic);
-            button3.Location = new Point(651, 381);
+            button3.Location = new Point(744, 508);
+            button3.Margin = new Padding(3, 4, 3, 4);
             button3.Name = "button3";
-            button3.Size = new Size(109, 48);
+            button3.Size = new Size(125, 64);
             button3.TabIndex = 27;
             button3.Text = "Back";
             button3.UseVisualStyleBackColor = false;
@@ -107,17 +111,19 @@
             // 
             // AdminForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(914, 600);
             Controls.Add(button3);
             Controls.Add(label4);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(button8);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "AdminForm";
             Text = "AdminForm";
+            Load += AdminForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

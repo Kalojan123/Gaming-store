@@ -50,6 +50,7 @@ namespace Gaming_store.Forms
             if (!string.IsNullOrWhiteSpace(textBox1.Text) && !ImagesAreEqual(pictureBox1.Image,Resources.Rk8hwA80))
             {
                 MessageBox.Show(await gameController.AddGame(textBox1.Text, Enum.Parse<Genres>(comboBox1.Text), numericUpDown1.Value, ImageHandeler.ImageToByteArray((Bitmap)pictureBox1.Image),DateOnly.FromDateTime(dateTimePicker1.Value.Date)));
+                Hide();
             }
             else
             {
