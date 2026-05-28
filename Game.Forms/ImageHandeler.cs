@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gaming_store.Forms
+namespace GamingStore.Forms
 {
     public static class ImageHandeler
     {

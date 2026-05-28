@@ -1,4 +1,6 @@
-﻿namespace GamingStore.Forms
+﻿using GamingStore.Forms.Properties;
+
+namespace Gaming_store.Forms
 {
     partial class LibraryForm
     {
@@ -61,7 +63,7 @@
             // 
             // button7
             // 
-            button7.BackgroundImage = Properties.Resources.Red_X_svg;
+            button7.BackgroundImage = Resources.Red_X_svg;
             button7.BackgroundImageLayout = ImageLayout.Stretch;
             button7.ForeColor = SystemColors.ControlText;
             button7.Location = new Point(663, 153);
@@ -74,7 +76,7 @@
             // 
             // button6
             // 
-            button6.BackgroundImage = Properties.Resources.Red_X_svg;
+            button6.BackgroundImage = Resources.Red_X_svg;
             button6.BackgroundImageLayout = ImageLayout.Stretch;
             button6.ForeColor = SystemColors.ControlText;
             button6.Location = new Point(663, 237);
@@ -87,7 +89,7 @@
             // 
             // button5
             // 
-            button5.BackgroundImage = Properties.Resources.Magnifying_glass_icon_svg;
+            button5.BackgroundImage = Resources.Magnifying_glass_icon_svg;
             button5.BackgroundImageLayout = ImageLayout.Stretch;
             button5.Location = new Point(539, 257);
             button5.Margin = new Padding(3, 2, 3, 2);

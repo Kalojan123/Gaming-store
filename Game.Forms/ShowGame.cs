@@ -1,5 +1,6 @@
 ﻿using Gaming_store.Data;
 using Gaming_store.Entities;
+using GamingStore.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

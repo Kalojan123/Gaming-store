@@ -1,4 +1,6 @@
-namespace Gaming_store.Forms
+using Gaming_store.Forms;
+
+namespace GamingStore.Forms
 {
     internal static class Program
     {

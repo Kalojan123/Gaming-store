@@ -1,4 +1,4 @@
-﻿namespace GamingStore.Forms
+﻿namespace Gaming_store.Forms
 {
     partial class UpdateBalanceForm
     {

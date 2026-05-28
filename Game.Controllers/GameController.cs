@@ -16,7 +16,11 @@ namespace GamingStore.Controllers
         public GameController()
         {
             context = new GameContext();
-        }     
+        }
+        public GameController(GameContext Context)
+        {
+            context = Context;
+        }
         public async Task<string> AddGame(string gameName, Genres genre, decimal price, byte[] image, DateOnly releaseDate)
         {
             Game game = new Game

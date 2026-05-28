@@ -1,4 +1,6 @@
-﻿namespace GamingStore.Forms
+﻿using GamingStore.Forms.Properties;
+
+namespace Gaming_store.Forms
 {
     partial class ShowGameDiscount
     {
@@ -46,7 +48,7 @@
             // 
             // button6
             // 
-            button6.BackgroundImage = Properties.Resources.Red_X_svg;
+            button6.BackgroundImage = Resources.Red_X_svg;
             button6.BackgroundImageLayout = ImageLayout.Stretch;
             button6.ForeColor = SystemColors.ControlText;
             button6.Location = new Point(126, 3);

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GamingStore.Forms
+namespace Gaming_store.Forms
 {
     public partial class BalanceForm : Form
     {

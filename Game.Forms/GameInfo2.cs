@@ -1,6 +1,7 @@
 ﻿using Gaming_store.Data;
 using Gaming_store.Enums;
 using GamingStore.Controllers;
+using GamingStore.Forms;
 using GamingStore.Forms.Properties;
 using System;
 using System.Collections.Generic;
