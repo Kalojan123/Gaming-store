@@ -33,7 +33,7 @@ namespace Gaming_store.Forms
                 MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if(textBox2.Text != textBox3.Text)
+            if(textBox3.Text != textBox4.Text)
             {
                 MessageBox.Show("Passwords do not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -42,9 +42,9 @@ namespace Gaming_store.Forms
             if (result == "Registration successful.")
             {
                 MessageBox.Show(result, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Hide();
+                this.Hide();
                 LogInForm logInForm = new LogInForm();
-                logInForm.ShowDialog();
+                logInForm.Show();
             }
             else
             {

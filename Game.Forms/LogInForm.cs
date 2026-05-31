@@ -21,7 +21,6 @@ namespace Gaming_store.Forms
         {
             InitializeComponent();
             userController = new UserController();
-            CurrentUser = new User();
         }
 
         private void LogInForm_Load(object sender, EventArgs e)
@@ -38,14 +37,16 @@ namespace Gaming_store.Forms
             }
             else
             {
-                MessageBox.Show(text, "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);    
+                MessageBox.Show(text, "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CurrentUser = new User();    
                 CurrentUser = await userController.GetUserByName(textBox1.Text);
                 if (CurrentUser.Role == Roles.User)
                 {
                     MainMenu mainMenu = new MainMenu();
-                    mainMenu.Hiddenbuttons();
+                    mainMenu.button1.Visible = false;
+                    mainMenu.button2.Visible = false;
                     mainMenu.Show();
-                    Hide();
+                    this.Hide();
                 }
                 else
                 {
@@ -57,10 +58,12 @@ namespace Gaming_store.Forms
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.Show();
+        {            
             Hide();
+        }
+        public static void UpdateBalance(decimal balance)
+        {
+            CurrentUser.Balance += balance;
         }
     }
 }

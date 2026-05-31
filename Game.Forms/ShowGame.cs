@@ -28,9 +28,7 @@ namespace Gaming_store.Forms
             {
                 CurrentGame = Game;
                 GameInfo gameInfo = new GameInfo(CurrentGame);
-                gameInfo.ShowDialog();
-                MainMenu mainMenu = new MainMenu();
-                mainMenu.Hide();
+                gameInfo.Show();                
             }
             else
             {

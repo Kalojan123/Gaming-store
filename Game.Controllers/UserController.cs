@@ -57,7 +57,7 @@ namespace GamingStore.Controllers
         public async Task<string> UpdateBalance(int userId, decimal amount)
         {
             User user = await context.Users.FindAsync(userId);            
-            user.Balance += amount;
+            user.Balance += amount;             
             await context.SaveChangesAsync();
             return $"Balance updated.";
         }       

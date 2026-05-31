@@ -48,9 +48,7 @@ namespace Gaming_store.Forms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Hide();
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.Show();
+            Hide();            
         }
 
         private async void button2_Click(object sender, EventArgs e)

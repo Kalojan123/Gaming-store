@@ -28,13 +28,18 @@ namespace Gaming_store.Forms
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            string result = await userController.UpdateBalance(LogInForm.CurrentUser.Id, numericUpDown1.Value);
+            BalanceForm balanceForm = new BalanceForm();
+            string result = await userController.UpdateBalance(LogInForm.CurrentUser.Id, numericUpDown1.Value);            
             MessageBox.Show(result);
+            LogInForm.UpdateBalance(numericUpDown1.Value);
+            balanceForm.label2.Text = $"{LogInForm.CurrentUser.Balance:C}";
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
-            Hide();            
+        {        
+            BalanceForm balanceForm = new BalanceForm();            
+            balanceForm.Show();            
+            this.Hide();            
         }
     }
 }

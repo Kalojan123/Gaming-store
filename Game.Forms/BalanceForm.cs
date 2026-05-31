@@ -1,4 +1,5 @@
 ﻿using Gaming_store.Forms;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,23 +17,23 @@ namespace Gaming_store.Forms
         public BalanceForm()
         {
             InitializeComponent();
+            label2.Text = $"{LogInForm.CurrentUser.Balance:C}";
         }
 
         private void BalanceForm_Load(object sender, EventArgs e)
         {
-            label2.Text = $"{LogInForm.CurrentUser.Balance:C}";
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             UpdateBalanceForm updateBalanceForm = new UpdateBalanceForm();
-            updateBalanceForm.ShowDialog();            
+            updateBalanceForm.ShowDialog();
+            Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.Show();
+        {            
             Hide();
         }
     }

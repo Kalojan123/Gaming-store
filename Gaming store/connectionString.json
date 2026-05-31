@@ -1,5 +1,5 @@
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=TediLaptop;Database=GameStoreDB;Trusted_Connection=True;TrustServerCertificate=True"
+    "DefaultConnection": "Server=DESKTOP-IG418IM\\SQLEXPRESS;Database=GameStoreDB;Trusted_Connection=True;TrustServerCertificate=True"
   }
 }

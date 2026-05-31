@@ -30,7 +30,7 @@ namespace Gaming_store.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             LogInForm logInForm = new LogInForm();
-            logInForm.Show();
+            logInForm.ShowDialog();
             Hide();
         }
 
@@ -38,19 +38,19 @@ namespace Gaming_store.Forms
         {
             RegistrationForm registrationForm = new RegistrationForm();
             registrationForm.ShowDialog();
+            Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             if (LogInForm.CurrentUser != null)
             {
-                Hide();
                 BalanceForm balanceForm = new BalanceForm();
-                balanceForm.ShowDialog();
+                balanceForm.ShowDialog();                
             }
             else
             {
-                MessageBox.Show("Please sign in or register to view your balance.");
+                MessageBox.Show("Please sign in or sign up to view your balance.");
             }
         }
 
@@ -69,7 +69,7 @@ namespace Gaming_store.Forms
             }
             else
             {
-                MessageBox.Show("Please sign in or register to view your library.");
+                MessageBox.Show("Please sign in or sign up to view your library.");
             }
         }
 
@@ -140,7 +140,7 @@ namespace Gaming_store.Forms
         }
 
         private void button8_Click(object sender, EventArgs e)
-        {            
+        {
             if (LogInForm.CurrentUser != null)
             {
                 if (LogInForm.CurrentUser.Wishlist == null)
@@ -154,12 +154,12 @@ namespace Gaming_store.Forms
             }
             else
             {
-                MessageBox.Show("Please sign in or register to view your wishlist.");
+                MessageBox.Show("Please sign in or sign up to view your wishlist.");
             }
         }
 
         private void button9_Click(object sender, EventArgs e)
-        {            
+        {
             if (LogInForm.CurrentUser != null)
             {
                 if (LogInForm.CurrentUser.Cart == null)
@@ -173,18 +173,13 @@ namespace Gaming_store.Forms
             }
             else
             {
-                MessageBox.Show("Please sign in or register to view your cart.");
+                MessageBox.Show("Please sign in or sign up to view your cart.");
             }
-        }    
-        public void Hiddenbuttons()
-        {
-            button1.Visible = false;
-            button2.Visible = false;
         }
         public void ShowDiscount(Game game)
         {
             ShowGameDiscount showGameDiscount = new ShowGameDiscount(game);
-            showGameDiscount.Show(); 
+            showGameDiscount.Show();
         }
     }
 }

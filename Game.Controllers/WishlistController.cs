@@ -18,15 +18,15 @@ namespace GamingStore.Controllers
         }        
         public async Task<string> AddToWishlist(int userId, int gameId)
         {
-            Wishlist wishlist = await context.Wishlists.FirstOrDefaultAsync(w => w.UserId == userId);            
+            Wishlist wishlist = await context.Wishlists.FirstAsync(w => w.UserId == userId);         
             wishlist.WishlistsGames.Add(new WishlistGame { GameId = gameId });
             await context.SaveChangesAsync();
             return "Game added to wishlist.";
         }
         public async Task<string> RemoveFromWishlist(int userId, int gameId)
         {
-            Wishlist wishlist = await context.Wishlists.FirstOrDefaultAsync(w => w.UserId == userId);
-            WishlistGame wishlistGame = wishlist.WishlistsGames.FirstOrDefault(wg => wg.GameId == gameId);            
+            Wishlist wishlist = await context.Wishlists.FirstAsync(w => w.UserId == userId);
+            WishlistGame wishlistGame = wishlist.WishlistsGames.First(wg => wg.GameId == gameId);            
             wishlist.WishlistsGames.Remove(wishlistGame);
             await context.SaveChangesAsync();
             return "Game removed from wishlist.";
