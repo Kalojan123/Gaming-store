@@ -16,9 +16,20 @@ namespace GamingStore.Controllers
         {
             context = new GameContext();
         }        
+        public async Task<bool> IsInCart(int userId, int GameId)
+        {
+            Cart cart = await context.Carts.FirstAsync(w => w.UserId == userId);
+            return cart.CartsGames.Any(wg => wg.GameId == GameId);
+        }
+        public async Task<string> CreateCart(int userId)
+        {
+            await context.Carts.AddAsync(new Cart { UserId = userId });
+            await context.SaveChangesAsync();
+            return "Cart created successfully.";
+        }
         public async Task<string> AddToCart(int userId, int gameId)
         {
-            Cart cart = await context.Carts.FirstOrDefaultAsync(w => w.UserId == userId);            
+            Cart cart = await context.Carts.Include(c => c.CartsGames).FirstAsync(w => w.UserId == userId);   
             cart.CartsGames.Add(new CartGame { GameId = gameId });
             await context.SaveChangesAsync();
             return "Game added to cart.";

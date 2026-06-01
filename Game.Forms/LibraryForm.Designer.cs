@@ -38,15 +38,15 @@ namespace Gaming_store.Forms
             textBox1 = new TextBox();
             label2 = new Label();
             comboBox1 = new ComboBox();
+            button8 = new Button();
             SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.BackColor = Color.Maroon;
-            flowLayoutPanel1.Location = new Point(1, 38);
-            flowLayoutPanel1.Margin = new Padding(3, 2, 3, 2);
+            flowLayoutPanel1.Location = new Point(1, 51);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(533, 300);
+            flowLayoutPanel1.Size = new Size(609, 400);
             flowLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -54,9 +54,9 @@ namespace Gaming_store.Forms
             label1.BackColor = Color.Orange;
             label1.BorderStyle = BorderStyle.FixedSingle;
             label1.Font = new Font("Arial Black", 12F, FontStyle.Bold | FontStyle.Italic);
-            label1.Location = new Point(256, 3);
+            label1.Location = new Point(293, 4);
             label1.Name = "label1";
-            label1.Size = new Size(188, 34);
+            label1.Size = new Size(215, 45);
             label1.TabIndex = 4;
             label1.Text = "Someone's library";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -66,10 +66,9 @@ namespace Gaming_store.Forms
             button7.BackgroundImage = Resources.Red_X_svg;
             button7.BackgroundImageLayout = ImageLayout.Stretch;
             button7.ForeColor = SystemColors.ControlText;
-            button7.Location = new Point(663, 153);
-            button7.Margin = new Padding(3, 2, 3, 2);
+            button7.Location = new Point(758, 204);
             button7.Name = "button7";
-            button7.Size = new Size(18, 15);
+            button7.Size = new Size(21, 20);
             button7.TabIndex = 16;
             button7.UseVisualStyleBackColor = true;
             button7.Click += button7_Click;
@@ -79,10 +78,9 @@ namespace Gaming_store.Forms
             button6.BackgroundImage = Resources.Red_X_svg;
             button6.BackgroundImageLayout = ImageLayout.Stretch;
             button6.ForeColor = SystemColors.ControlText;
-            button6.Location = new Point(663, 237);
-            button6.Margin = new Padding(3, 2, 3, 2);
+            button6.Location = new Point(758, 316);
             button6.Name = "button6";
-            button6.Size = new Size(18, 15);
+            button6.Size = new Size(21, 20);
             button6.TabIndex = 15;
             button6.UseVisualStyleBackColor = true;
             button6.Click += button6_Click;
@@ -91,20 +89,18 @@ namespace Gaming_store.Forms
             // 
             button5.BackgroundImage = Resources.Magnifying_glass_icon_svg;
             button5.BackgroundImageLayout = ImageLayout.Stretch;
-            button5.Location = new Point(539, 257);
-            button5.Margin = new Padding(3, 2, 3, 2);
+            button5.Location = new Point(616, 343);
             button5.Name = "button5";
-            button5.Size = new Size(26, 22);
+            button5.Size = new Size(30, 29);
             button5.TabIndex = 14;
             button5.UseVisualStyleBackColor = true;
             button5.Click += button5_Click;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(571, 257);
-            textBox1.Margin = new Padding(3, 2, 3, 2);
+            textBox1.Location = new Point(653, 343);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(110, 23);
+            textBox1.Size = new Size(125, 27);
             textBox1.TabIndex = 13;
             // 
             // label2
@@ -112,9 +108,9 @@ namespace Gaming_store.Forms
             label2.BackColor = Color.Orange;
             label2.BorderStyle = BorderStyle.FixedSingle;
             label2.Font = new Font("Arial Black", 12F, FontStyle.Bold | FontStyle.Italic);
-            label2.Location = new Point(540, 101);
+            label2.Location = new Point(617, 135);
             label2.Name = "label2";
-            label2.Size = new Size(148, 50);
+            label2.Size = new Size(169, 66);
             label2.TabIndex = 11;
             label2.Text = "Filter by genre";
             label2.TextAlign = ContentAlignment.MiddleCenter;
@@ -122,19 +118,36 @@ namespace Gaming_store.Forms
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(540, 172);
-            comboBox1.Margin = new Padding(3, 2, 3, 2);
+            comboBox1.Location = new Point(617, 229);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(148, 23);
+            comboBox1.Size = new Size(169, 28);
             comboBox1.TabIndex = 12;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
+            // button8
+            // 
+            button8.BackColor = Color.DimGray;
+            button8.FlatAppearance.MouseDownBackColor = Color.White;
+            button8.FlatAppearance.MouseOverBackColor = Color.White;
+            button8.FlatStyle = FlatStyle.Flat;
+            button8.Font = new Font("Arial Black", 12F, FontStyle.Bold | FontStyle.Italic);
+            button8.Location = new Point(643, 394);
+            button8.Margin = new Padding(3, 4, 3, 4);
+            button8.Name = "button8";
+            button8.Size = new Size(113, 44);
+            button8.TabIndex = 17;
+            button8.Text = "Back";
+            button8.UseVisualStyleBackColor = false;
+            button8.Click += button8_Click;
+            // 
             // LibraryForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
-            ClientSize = new Size(700, 338);
+            ClientSize = new Size(800, 451);
+            ControlBox = false;
+            Controls.Add(button8);
             Controls.Add(button7);
             Controls.Add(button6);
             Controls.Add(button5);
@@ -143,7 +156,6 @@ namespace Gaming_store.Forms
             Controls.Add(comboBox1);
             Controls.Add(label1);
             Controls.Add(flowLayoutPanel1);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "LibraryForm";
             Text = "LibraryForm";
             Load += LibraryForm_Load;
@@ -161,5 +173,6 @@ namespace Gaming_store.Forms
         private TextBox textBox1;
         private Label label2;
         private ComboBox comboBox1;
+        private Button button8;
     }
 }

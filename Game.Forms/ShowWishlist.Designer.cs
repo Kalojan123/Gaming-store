@@ -36,9 +36,8 @@
             // pictureBox1
             // 
             pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(70, 60);
+            pictureBox1.Size = new Size(80, 80);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -47,10 +46,9 @@
             // button1
             // 
             button1.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(0, 64);
-            button1.Margin = new Padding(3, 2, 3, 2);
+            button1.Location = new Point(0, 85);
             button1.Name = "button1";
-            button1.Size = new Size(70, 34);
+            button1.Size = new Size(80, 45);
             button1.TabIndex = 1;
             button1.Text = "Add to cart";
             button1.TextAlign = ContentAlignment.TopCenter;
@@ -59,13 +57,13 @@
             // 
             // ShowWishlist
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(button1);
             Controls.Add(pictureBox1);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "ShowWishlist";
-            Size = new Size(70, 98);
+            Size = new Size(80, 131);
+            Load += ShowWishlist_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }

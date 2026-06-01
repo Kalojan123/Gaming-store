@@ -1,6 +1,7 @@
 using Gaming_store.Data;
 using Gaming_store.Entities;
 using Gaming_store.Enums;
+using GamingStore.Controllers;
 using GamingStore.Forms;
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,7 +14,7 @@ namespace Gaming_store.Forms
         {
             InitializeComponent();
             context = new GameContext();
-        }        
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -30,14 +31,14 @@ namespace Gaming_store.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             LogInForm logInForm = new LogInForm();
-            logInForm.ShowDialog();
+            logInForm.Show();
             Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             RegistrationForm registrationForm = new RegistrationForm();
-            registrationForm.ShowDialog();
+            registrationForm.Show();
             Hide();
         }
 
@@ -46,7 +47,7 @@ namespace Gaming_store.Forms
             if (LogInForm.CurrentUser != null)
             {
                 BalanceForm balanceForm = new BalanceForm();
-                balanceForm.ShowDialog();                
+                balanceForm.ShowDialog();
             }
             else
             {
@@ -55,17 +56,18 @@ namespace Gaming_store.Forms
         }
 
         private void button4_Click(object sender, EventArgs e)
-        {            
+        {
             if (LogInForm.CurrentUser != null)
             {
-                if (LogInForm.CurrentUser.Library == null)
+                if (LogInForm.CurrentUser.Library.LibrariesGames.Count == 0)
                 {
                     MessageBox.Show("There are no games in the library!");
                     return;
                 }
                 LibraryForm libraryForm = new LibraryForm();
-                libraryForm.ShowDialog();
                 Hide();
+                libraryForm.ShowDialog();
+                Show();
             }
             else
             {
@@ -143,14 +145,15 @@ namespace Gaming_store.Forms
         {
             if (LogInForm.CurrentUser != null)
             {
-                if (LogInForm.CurrentUser.Wishlist == null)
+                if (LogInForm.CurrentUser.Wishlist.WishlistsGames.Count == 0)
                 {
                     MessageBox.Show("There are no games in the wishlist!");
                     return;
                 }
                 WishlistForm wishlistForm = new WishlistForm();
-                wishlistForm.ShowDialog();
                 Hide();
+                wishlistForm.ShowDialog();
+                Show();
             }
             else
             {
@@ -162,14 +165,15 @@ namespace Gaming_store.Forms
         {
             if (LogInForm.CurrentUser != null)
             {
-                if (LogInForm.CurrentUser.Cart == null)
+                if (LogInForm.CurrentUser.Cart.CartsGames.Count == 0)
                 {
                     MessageBox.Show("There are no games in the cart!");
                     return;
                 }
                 CartForm cartForm = new CartForm();
-                cartForm.ShowDialog();
                 Hide();
+                cartForm.ShowDialog();
+                Show();
             }
             else
             {
@@ -180,6 +184,20 @@ namespace Gaming_store.Forms
         {
             ShowGameDiscount showGameDiscount = new ShowGameDiscount(game);
             showGameDiscount.Show();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            button1.Visible = true;
+            button2.Visible = true;
+            button10.Visible = false;
+            LogInForm.CurrentUser = null;
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Close();
+            Environment.Exit(0);
         }
     }
 }

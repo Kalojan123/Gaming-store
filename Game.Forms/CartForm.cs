@@ -1,4 +1,5 @@
-﻿using Gaming_store.Entities;
+﻿using Gaming_store.Data;
+using Gaming_store.Entities;
 using Gaming_store.Enums;
 using Gaming_store.Forms;
 using System;
@@ -15,9 +16,11 @@ namespace Gaming_store.Forms
 {
     public partial class CartForm : Form
     {
+        private GameContext context;
         public CartForm()
         {
             InitializeComponent();
+            context = new GameContext();
         }
 
         private void CartForm_Load(object sender, EventArgs e)
@@ -25,9 +28,9 @@ namespace Gaming_store.Forms
             label1.Text = $"Welcome to your cart, {LogInForm.CurrentUser.Username}!";
             if (LogInForm.CurrentUser.Cart.CartsGames != null)
             {
-                foreach (Game game in LogInForm.CurrentUser.Cart.CartsGames.Select(g => g.Game))
+                foreach (int gameId in LogInForm.CurrentUser.Cart.CartsGames.Select(g => g.GameId))
                 {
-                    ShowCart showCart = new ShowCart(game);
+                    ShowCart showCart = new ShowCart(context.Games.First(g => g.Id == gameId));
                     flowLayoutPanel1.Controls.Add(showCart);
                 }
             }
@@ -104,6 +107,11 @@ namespace Gaming_store.Forms
                     flowLayoutPanel1.Controls.Add(showCart);
                 }
             }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Hide();
         }
     }
 }

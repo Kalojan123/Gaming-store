@@ -1,12 +1,16 @@
-﻿using Gaming_store.Entities;
+﻿using Gaming_store.Data;
+using Gaming_store.Entities;
 using Gaming_store.Enums;
 using GamingStore.Controllers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,11 +19,13 @@ namespace Gaming_store.Forms
 {
     public partial class LogInForm : Form
     {
+        private GameContext context;
         private UserController userController;
         public static User CurrentUser { get; set; }
         public LogInForm()
         {
             InitializeComponent();
+            context = new GameContext();
             userController = new UserController();
         }
 
@@ -38,13 +44,14 @@ namespace Gaming_store.Forms
             else
             {
                 MessageBox.Show(text, "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CurrentUser = new User();    
-                CurrentUser = await userController.GetUserByName(textBox1.Text);
+                CurrentUser = new User();
+                CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).Include(u => u.Cart).ThenInclude(u => u.CartsGames).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).First(u => u.Username == textBox1.Text);
                 if (CurrentUser.Role == Roles.User)
                 {
                     MainMenu mainMenu = new MainMenu();
                     mainMenu.button1.Visible = false;
                     mainMenu.button2.Visible = false;
+                    mainMenu.button10.Visible = true;
                     mainMenu.Show();
                     this.Hide();
                 }
@@ -60,6 +67,8 @@ namespace Gaming_store.Forms
         private void button2_Click(object sender, EventArgs e)
         {            
             Hide();
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Show();
         }
         public static void UpdateBalance(decimal balance)
         {

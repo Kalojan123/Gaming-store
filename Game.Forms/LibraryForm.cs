@@ -1,4 +1,5 @@
-﻿using Gaming_store.Entities;
+﻿using Gaming_store.Data;
+using Gaming_store.Entities;
 using Gaming_store.Enums;
 using Gaming_store.Forms;
 using System;
@@ -15,9 +16,11 @@ namespace Gaming_store.Forms
 {
     public partial class LibraryForm : Form
     {
+        private GameContext context;
         public LibraryForm()
         {
             InitializeComponent();
+            context = new GameContext();
         }
 
         private void LibraryForm_Load(object sender, EventArgs e)
@@ -25,9 +28,9 @@ namespace Gaming_store.Forms
             label1.Text = $"Welcome to your library, {LogInForm.CurrentUser.Username}!";
             if (LogInForm.CurrentUser.Library.LibrariesGames != null)
             {
-                foreach (Game game in LogInForm.CurrentUser.Library.LibrariesGames.Select(x => x.Game))
+                foreach (int gameId in LogInForm.CurrentUser.Library.LibrariesGames.Select(x => x.GameId))
                 {
-                    ShowLibrary showLibrary = new ShowLibrary(game);
+                    ShowLibrary showLibrary = new ShowLibrary(context.Games.First(g => g.Id == gameId));
                     flowLayoutPanel1.Controls.Add(showLibrary);
                 }
             }
@@ -104,6 +107,11 @@ namespace Gaming_store.Forms
                     flowLayoutPanel1.Controls.Add(showLibrary);
                 }
             }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Hide();            
         }
     }
 }

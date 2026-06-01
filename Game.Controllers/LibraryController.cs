@@ -16,6 +16,12 @@ namespace GamingStore.Controllers
         {
             context = new GameContext();
         }        
+        public async Task<string> CreateLibrary(int userId)
+        {
+            await context.Libraries.AddAsync(new Library { UserId = userId });
+            await context.SaveChangesAsync();
+            return "Library created successfully.";
+        }
         public async Task<string> AddToLibrary(int userId, int gameId)
         {
             User user = await context.Users.FindAsync(userId);
@@ -25,7 +31,7 @@ namespace GamingStore.Controllers
                 return "Insufficient balance.";
             }
             user.Balance -= game.Price;
-            Library library = await context.Libraries.FirstOrDefaultAsync(l => l.UserId == userId);
+            Library library = await context.Libraries.Include(c => c.LibrariesGames).FirstAsync(l => l.UserId == userId);
             library.LibrariesGames.Add(new LibraryGame { GameId = gameId });
             await context.SaveChangesAsync();
             return $"Game '{game.Name}' purchased successfully.";

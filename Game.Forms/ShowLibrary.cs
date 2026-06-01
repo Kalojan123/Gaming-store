@@ -22,6 +22,7 @@ namespace Gaming_store.Forms
             InitializeComponent();
             game = new Game();
             game = Game;
+            pictureBox1.Image = ImageHandeler.ByteArrayToImage(game.image);
         }        
 
         private void ShowLibrary_Load(object sender, EventArgs e)

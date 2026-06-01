@@ -1,4 +1,5 @@
-﻿using Gaming_store.Enums;
+﻿using Gaming_store.Entities;
+using Gaming_store.Enums;
 using GamingStore.Controllers;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,10 +17,16 @@ namespace Gaming_store.Forms
     public partial class RegistrationForm : Form
     {
         private UserController userController;
+        private WishlistController wishlistController;
+        private CartController cartController;
+        private LibraryController libraryController;
         public RegistrationForm()
         {
             InitializeComponent();
             userController = new UserController();
+            wishlistController = new WishlistController();
+            cartController = new CartController();
+            libraryController = new LibraryController();
         }
 
         private void RegistrationForm_Load(object sender, EventArgs e)
@@ -42,6 +50,10 @@ namespace Gaming_store.Forms
             if (result == "Registration successful.")
             {
                 MessageBox.Show(result, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                User user = await userController.GetUserByName(textBox2.Text);
+                await wishlistController.CreateWishlist(user.Id);
+                await cartController.CreateCart(user.Id);
+                await libraryController.CreateLibrary(user.Id);
                 this.Hide();
                 LogInForm logInForm = new LogInForm();
                 logInForm.Show();
@@ -55,6 +67,8 @@ namespace Gaming_store.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             Hide();
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Show();
         }
     }
 }

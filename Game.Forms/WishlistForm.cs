@@ -1,4 +1,5 @@
-﻿using Gaming_store.Entities;
+﻿using Gaming_store.Data;
+using Gaming_store.Entities;
 using Gaming_store.Enums;
 using Gaming_store.Forms;
 using System;
@@ -15,8 +16,10 @@ namespace Gaming_store.Forms
 {
     public partial class WishlistForm : Form
     {
+        private GameContext context;
         public WishlistForm()
         {
+            context = new GameContext();
             InitializeComponent();
         }
 
@@ -25,9 +28,9 @@ namespace Gaming_store.Forms
             label1.Text = $"Welcome to your wishlist, {LogInForm.CurrentUser.Username}!";
             if (LogInForm.CurrentUser.Wishlist.WishlistsGames != null)
             {
-                foreach (Game game in LogInForm.CurrentUser.Wishlist.WishlistsGames.Select(x => x.Game))
+                foreach (int gameId in LogInForm.CurrentUser.Wishlist.WishlistsGames.Select(x => x.GameId))
                 {
-                    ShowWishlist showWishlist = new ShowWishlist(game);
+                    ShowWishlist showWishlist = new ShowWishlist(context.Games.First(g => g.Id == gameId));
                     flowLayoutPanel1.Controls.Add(showWishlist);
                 }
             }
@@ -104,6 +107,16 @@ namespace Gaming_store.Forms
                     flowLayoutPanel1.Controls.Add(showWishlist);
                 }
             }
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Hide();
         }
     }
 }
