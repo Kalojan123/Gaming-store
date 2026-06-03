@@ -83,7 +83,7 @@ namespace Gaming_store.Forms
             if (textBox1.Text != null)
             {
                 List<Game> games = new List<Game>();
-                games = LogInForm.CurrentUser.Cart.CartsGames.Select(g => g.Game).Where(g => g.Genre == (Genres)comboBox1.SelectedItem).ToList();
+                games = LogInForm.CurrentUser.Cart.CartsGames.Select(g => g.Game).Where(g => g.Genre == GenreHelper.GetGenresFromEnumName(comboBox1.SelectedItem.ToString())).ToList();
                 if (games.Count == 0)
                 {
                     MessageBox.Show("No games found with that genre.");

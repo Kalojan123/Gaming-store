@@ -55,7 +55,7 @@ namespace Gaming_store.Forms
             MessageBox.Show(result);
             result = await wishlist.RemoveFromWishlist(LogInForm.CurrentUser.Id, currentGame.Id);
             MessageBox.Show(result);
-            LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).Include(u => u.Cart).ThenInclude(u => u.CartsGames).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).First(u => u.Username == LogInForm.CurrentUser.Username);
+            LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);
         }
 
         private void ShowWishlist_Load(object sender, EventArgs e)

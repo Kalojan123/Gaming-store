@@ -45,7 +45,7 @@ namespace Gaming_store.Forms
             {
                 MessageBox.Show(text, "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CurrentUser = new User();
-                CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).Include(u => u.Cart).ThenInclude(u => u.CartsGames).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).First(u => u.Username == textBox1.Text);
+                CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == textBox1.Text);
                 if (CurrentUser.Role == Roles.User)
                 {
                     MainMenu mainMenu = new MainMenu();

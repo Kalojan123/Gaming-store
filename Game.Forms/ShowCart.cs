@@ -50,6 +50,11 @@ namespace Gaming_store.Forms
                 MessageBox.Show(output);
                 return;
             }
+            else if(output == "Game is already in library.")
+            {
+                MessageBox.Show(output);
+                return;
+            }
             MessageBox.Show(output);
             Wishlist wishlist = await context.Wishlists.Include(w => w.WishlistsGames).FirstAsync(w => w.UserId == LogInForm.CurrentUser.Id);
             if (wishlist.WishlistsGames.Any(wg => wg.GameId == CurrentGame.Id))
@@ -58,7 +63,7 @@ namespace Gaming_store.Forms
                 await wishlistController.RemoveFromWishlist(LogInForm.CurrentUser.Id, CurrentGame.Id);
             }
             string output2 = await cart.RemoveFromCart(LogInForm.CurrentUser.Id, CurrentGame.Id);
-            LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).Include(u => u.Cart).ThenInclude(u => u.CartsGames).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).First(u => u.Username == LogInForm.CurrentUser.Username);
+            LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);
         }
     }
 }

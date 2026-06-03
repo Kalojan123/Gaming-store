@@ -111,22 +111,19 @@ namespace Gaming_store.Forms
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            flowLayoutPanel1.Controls.Clear();
-            if (textBox1.Text != null)
+            flowLayoutPanel1.Controls.Clear();            
+            List<Game> games = new List<Game>();
+            games = context.Games.Where(g => g.Genre == GenreHelper.GetGenresFromEnumName(comboBox1.SelectedItem.ToString())).ToList();
+            if (games.Count == 0)
             {
-                List<Game> games = new List<Game>();
-                games = context.Games.Where(g => g.Genre == (Genres)comboBox1.SelectedItem).ToList();
-                if (games.Count == 0)
-                {
-                    MessageBox.Show("No games found with that genre.");
-                    return;
-                }
-                foreach (Game game in games)
-                {
-                    ShowGame showGame = new ShowGame(game);
-                    flowLayoutPanel1.Controls.Add(showGame);
-                }
+                MessageBox.Show("No games found with that genre.");
+                return;
             }
+            foreach (Game game in games)
+            {
+                ShowGame showGame = new ShowGame(game);
+                flowLayoutPanel1.Controls.Add(showGame);
+            }            
         }
 
         private void button7_Click(object sender, EventArgs e)

@@ -35,6 +35,10 @@ namespace GamingStore.Controllers
             {
                 return "Insufficient balance.";
             }
+            if(await IsInLibrary(userId, gameId))
+            {
+                return "Game is already in library.";
+            }
             user.Balance -= game.Price;
             Library library = await context.Libraries.Include(c => c.LibrariesGames).FirstAsync(l => l.UserId == userId);
             library.LibrariesGames.Add(new LibraryGame { GameId = gameId });

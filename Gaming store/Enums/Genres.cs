@@ -19,4 +19,11 @@ namespace Gaming_store.Enums
             Racing = 9,
             Fighting = 10        
     }
+    public class GenreHelper
+    {
+        public static Genres GetGenresFromEnumName(string name)
+        {
+            return (Genres)Enum.Parse(typeof(Genres), name);
+        }
+    }
 }
