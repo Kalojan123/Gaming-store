@@ -3,6 +3,7 @@ using Gaming_store.Entities;
 using Gaming_store.Forms;
 using GamingStore.Controllers;
 using GamingStore.Forms;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -50,9 +51,14 @@ namespace Gaming_store.Forms
                 return;
             }
             MessageBox.Show(output);
-            string output2 = await cart.RemoveFromCart(LogInForm.CurrentUser.Id, CurrentGame.Id);           
-            MessageBox.Show(output2);
-            LogInForm.CurrentUser.Library = context.Libraries.First(l => l.UserId == LogInForm.CurrentUser.Id);
+            Wishlist wishlist = await context.Wishlists.Include(w => w.WishlistsGames).FirstAsync(w => w.UserId == LogInForm.CurrentUser.Id);
+            if (wishlist.WishlistsGames.Any(wg => wg.GameId == CurrentGame.Id))
+            {
+                WishlistController wishlistController = new WishlistController();
+                await wishlistController.RemoveFromWishlist(LogInForm.CurrentUser.Id, CurrentGame.Id);
+            }
+            string output2 = await cart.RemoveFromCart(LogInForm.CurrentUser.Id, CurrentGame.Id);
+            LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).Include(u => u.Cart).ThenInclude(u => u.CartsGames).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).First(u => u.Username == LogInForm.CurrentUser.Username);
         }
     }
 }

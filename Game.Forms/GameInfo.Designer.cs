@@ -202,8 +202,8 @@
         private Label label4;
         private Label label6;
         private Label label7;
-        private Button button1;
         private Button button3;
-        private Button button2;
+        public Button button1;
+        public Button button2;
     }
 }

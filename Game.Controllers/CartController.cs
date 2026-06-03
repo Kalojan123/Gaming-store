@@ -18,7 +18,7 @@ namespace GamingStore.Controllers
         }        
         public async Task<bool> IsInCart(int userId, int GameId)
         {
-            Cart cart = await context.Carts.FirstAsync(w => w.UserId == userId);
+            Cart cart = await context.Carts.Include(x => x.CartsGames).FirstAsync(w => w.UserId == userId);
             return cart.CartsGames.Any(wg => wg.GameId == GameId);
         }
         public async Task<string> CreateCart(int userId)
@@ -36,8 +36,8 @@ namespace GamingStore.Controllers
         }
         public async Task<string> RemoveFromCart(int userId, int gameId)
         {
-            Cart cart = await context.Carts.FirstOrDefaultAsync(w => w.UserId == userId);
-            CartGame cartGame = cart.CartsGames.FirstOrDefault(wg => wg.GameId == gameId);           
+            Cart cart = await context.Carts.Include(x => x.CartsGames).FirstAsync(w => w.UserId == userId);
+            CartGame cartGame = cart.CartsGames.First(wg => wg.GameId == gameId);           
             cart.CartsGames.Remove(cartGame);
             await context.SaveChangesAsync();
             return "Game removed from cart.";

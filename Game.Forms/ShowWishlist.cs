@@ -1,7 +1,9 @@
-﻿using Gaming_store.Entities;
+﻿using Gaming_store.Data;
+using Gaming_store.Entities;
 using Gaming_store.Forms;
 using GamingStore.Controllers;
 using GamingStore.Forms;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -19,12 +21,14 @@ namespace Gaming_store.Forms
     public partial class ShowWishlist : UserControl
     {
         private Game game;
+        private GameContext context;
         public static Game currentGame { get; set; }
         public ShowWishlist(Game Game)
         {
             InitializeComponent();
             game = new Game();
             game = Game;
+            context = new GameContext();
             pictureBox1.Image = ImageHandeler.ByteArrayToImage(game.image);
         }
 
@@ -51,6 +55,7 @@ namespace Gaming_store.Forms
             MessageBox.Show(result);
             result = await wishlist.RemoveFromWishlist(LogInForm.CurrentUser.Id, currentGame.Id);
             MessageBox.Show(result);
+            LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).Include(u => u.Cart).ThenInclude(u => u.CartsGames).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).First(u => u.Username == LogInForm.CurrentUser.Username);
         }
 
         private void ShowWishlist_Load(object sender, EventArgs e)

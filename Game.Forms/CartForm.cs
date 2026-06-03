@@ -33,6 +33,7 @@ namespace Gaming_store.Forms
                     ShowCart showCart = new ShowCart(context.Games.First(g => g.Id == gameId));
                     flowLayoutPanel1.Controls.Add(showCart);
                 }
+                comboBox1.Items.AddRange(Enum.GetNames(typeof(Genres)));
             }
             else
             {

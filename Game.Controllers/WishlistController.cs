@@ -18,7 +18,7 @@ namespace GamingStore.Controllers
         }        
         public async Task<bool> IsInWishlist(int userId, int gameId)
         {
-            Wishlist wishlist = await context.Wishlists.FirstAsync(w => w.UserId == userId);
+            Wishlist wishlist = await context.Wishlists.Include(x => x.WishlistsGames).FirstAsync(w => w.UserId == userId);
             return wishlist.WishlistsGames.Any(wg => wg.GameId == gameId);
         }
         public async Task<string> CreateWishlist(int userId)
@@ -36,7 +36,7 @@ namespace GamingStore.Controllers
         }
         public async Task<string> RemoveFromWishlist(int userId, int gameId)
         {
-            Wishlist wishlist = await context.Wishlists.FirstAsync(w => w.UserId == userId);
+            Wishlist wishlist = await context.Wishlists.Include(x => x.WishlistsGames).FirstAsync(w => w.UserId == userId);
             WishlistGame wishlistGame = wishlist.WishlistsGames.First(wg => wg.GameId == gameId);            
             wishlist.WishlistsGames.Remove(wishlistGame);
             await context.SaveChangesAsync();

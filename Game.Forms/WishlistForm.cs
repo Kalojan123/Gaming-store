@@ -33,6 +33,7 @@ namespace Gaming_store.Forms
                     ShowWishlist showWishlist = new ShowWishlist(context.Games.First(g => g.Id == gameId));
                     flowLayoutPanel1.Controls.Add(showWishlist);
                 }
+                comboBox1.Items.AddRange(Enum.GetNames(typeof(Genres)));
             }
             else
             {

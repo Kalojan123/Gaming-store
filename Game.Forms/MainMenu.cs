@@ -26,6 +26,7 @@ namespace Gaming_store.Forms
                     flowLayoutPanel1.Controls.Add(showGame);
                 }
             }
+            comboBox1.Items.AddRange(Enum.GetNames(typeof(Genres)));
         }
 
         private void button1_Click(object sender, EventArgs e)

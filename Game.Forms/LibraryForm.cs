@@ -33,6 +33,7 @@ namespace Gaming_store.Forms
                     ShowLibrary showLibrary = new ShowLibrary(context.Games.First(g => g.Id == gameId));
                     flowLayoutPanel1.Controls.Add(showLibrary);
                 }
+                comboBox1.Items.AddRange(Enum.GetNames(typeof(Genres)));
             }
             else
             {

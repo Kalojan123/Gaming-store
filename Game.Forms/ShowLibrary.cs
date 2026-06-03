@@ -16,7 +16,7 @@ namespace Gaming_store.Forms
     public partial class ShowLibrary : UserControl
     {        
         private Game game;
-        public static Game CurrentGame { get; set; } 
+        public static Game CurrentGame { get; set; }
         public ShowLibrary(Game Game)
         {
             InitializeComponent();
@@ -34,9 +34,13 @@ namespace Gaming_store.Forms
         {           
             CurrentGame = game;
             GameInfo gameInfo = new GameInfo(CurrentGame);
+            gameInfo.button1.Visible = false;
+            gameInfo.button2.Visible = false;
             gameInfo.ShowDialog();
             LibraryForm libraryForm = new LibraryForm();
             libraryForm.Hide();
+            gameInfo.button1.Visible = false;
+            gameInfo.button2.Visible = false;
         }
     }
 }

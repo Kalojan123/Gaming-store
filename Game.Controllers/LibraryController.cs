@@ -16,6 +16,11 @@ namespace GamingStore.Controllers
         {
             context = new GameContext();
         }        
+        public async Task<bool> IsInLibrary(int userId, int gameId)
+        {
+            Library library = await context.Libraries.Include(x => x.LibrariesGames).FirstAsync(w => w.UserId == userId);
+            return library.LibrariesGames.Any(g => g.GameId == gameId);
+        }
         public async Task<string> CreateLibrary(int userId)
         {
             await context.Libraries.AddAsync(new Library { UserId = userId });
