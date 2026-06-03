@@ -76,21 +76,21 @@ namespace Gaming_store.Data
             });
             modelBuilder.Entity<WishlistGame>(wg =>
             {
-                wg.HasKey(wg => new { wg.WishlistId, wg.GameId });                
-                wg.HasOne(wg => wg.Wishlist).WithMany(w => w.WishlistsGames).HasForeignKey(wg => wg.WishlistId);
-                wg.HasOne(wg => wg.Game).WithMany(g => g.WishlistsGames).HasForeignKey(wg => wg.GameId).OnDelete(DeleteBehavior.ClientSetNull);
+                wg.HasKey(wg => wg.Id);                
+                wg.HasOne(wg => wg.Wishlist).WithMany(w => w.WishlistsGames).HasForeignKey(wg => wg.WishlistId).OnDelete(DeleteBehavior.Cascade);
+                wg.HasOne(wg => wg.Game).WithMany(g => g.WishlistsGames).HasForeignKey(wg => wg.GameId).OnDelete(DeleteBehavior.Cascade);
             });
             modelBuilder.Entity<CartGame>(cg =>
             {
-                cg.HasKey(cg => new { cg.CartId, cg.GameId });
-                cg.HasOne(cg => cg.Cart).WithMany(c => c.CartsGames).HasForeignKey(cg => cg.CartId);
-                cg.HasOne(cg => cg.Game).WithMany(g => g.CartsGames).HasForeignKey(cg => cg.GameId).OnDelete(DeleteBehavior.ClientSetNull);
+                cg.HasKey(cg => cg.Id);
+                cg.HasOne(cg => cg.Cart).WithMany(c => c.CartsGames).HasForeignKey(cg => cg.CartId).OnDelete(DeleteBehavior.Cascade);
+                cg.HasOne(cg => cg.Game).WithMany(g => g.CartsGames).HasForeignKey(cg => cg.GameId).OnDelete(DeleteBehavior.Cascade);
             });
             modelBuilder.Entity<LibraryGame>(lg =>
             {
-                lg.HasKey(lg => new { lg.LibraryId, lg.GameId });
-                lg.HasOne(lg => lg.Library).WithMany(l => l.LibrariesGames).HasForeignKey(lg => lg.LibraryId);
-                lg.HasOne(lg => lg.Game).WithMany(g => g.LibrariesGames).HasForeignKey(lg => lg.GameId).OnDelete(DeleteBehavior.ClientSetNull);
+                lg.HasKey(lg => lg.Id);
+                lg.HasOne(lg => lg.Library).WithMany(l => l.LibrariesGames).HasForeignKey(lg => lg.LibraryId).OnDelete(DeleteBehavior.Cascade);
+                lg.HasOne(lg => lg.Game).WithMany(g => g.LibrariesGames).HasForeignKey(lg => lg.GameId).OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

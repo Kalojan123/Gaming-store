@@ -43,13 +43,21 @@ namespace Gaming_store.Migrations
 
             modelBuilder.Entity("Gaming_store.Entities.CartGame", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CartId")
                         .HasColumnType("int");
 
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.HasKey("CartId", "GameId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("GameId");
 
@@ -113,15 +121,23 @@ namespace Gaming_store.Migrations
 
             modelBuilder.Entity("Gaming_store.Entities.LibraryGame", b =>
                 {
-                    b.Property<int>("LibraryId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.HasKey("LibraryId", "GameId");
+                    b.Property<int>("LibraryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("GameId");
+
+                    b.HasIndex("LibraryId");
 
                     b.ToTable("LibraryGames");
                 });
@@ -188,15 +204,23 @@ namespace Gaming_store.Migrations
 
             modelBuilder.Entity("Gaming_store.Entities.WishlistGame", b =>
                 {
-                    b.Property<int>("WishlistId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.HasKey("WishlistId", "GameId");
+                    b.Property<int>("WishlistId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("GameId");
+
+                    b.HasIndex("WishlistId");
 
                     b.ToTable("WishlistGames");
                 });
@@ -223,6 +247,7 @@ namespace Gaming_store.Migrations
                     b.HasOne("Gaming_store.Entities.Game", "Game")
                         .WithMany("CartsGames")
                         .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cart");
@@ -246,6 +271,7 @@ namespace Gaming_store.Migrations
                     b.HasOne("Gaming_store.Entities.Game", "Game")
                         .WithMany("LibrariesGames")
                         .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Gaming_store.Entities.Library", "Library")
@@ -275,6 +301,7 @@ namespace Gaming_store.Migrations
                     b.HasOne("Gaming_store.Entities.Game", "Game")
                         .WithMany("WishlistsGames")
                         .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Gaming_store.Entities.Wishlist", "Wishlist")

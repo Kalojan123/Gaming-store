@@ -108,12 +108,14 @@ namespace Gaming_store.Migrations
                 name: "CartGames",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CartId = table.Column<int>(type: "int", nullable: false),
                     GameId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartGames", x => new { x.CartId, x.GameId });
+                    table.PrimaryKey("PK_CartGames", x => x.Id);
                     table.ForeignKey(
                         name: "FK_CartGames_Carts_CartId",
                         column: x => x.CartId,
@@ -124,24 +126,28 @@ namespace Gaming_store.Migrations
                         name: "FK_CartGames_Games_GameId",
                         column: x => x.GameId,
                         principalTable: "Games",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "LibraryGames",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     LibraryId = table.Column<int>(type: "int", nullable: false),
                     GameId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LibraryGames", x => new { x.LibraryId, x.GameId });
+                    table.PrimaryKey("PK_LibraryGames", x => x.Id);
                     table.ForeignKey(
                         name: "FK_LibraryGames_Games_GameId",
                         column: x => x.GameId,
                         principalTable: "Games",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_LibraryGames_Libraries_LibraryId",
                         column: x => x.LibraryId,
@@ -154,17 +160,20 @@ namespace Gaming_store.Migrations
                 name: "WishlistGames",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     WishlistId = table.Column<int>(type: "int", nullable: false),
                     GameId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WishlistGames", x => new { x.WishlistId, x.GameId });
+                    table.PrimaryKey("PK_WishlistGames", x => x.Id);
                     table.ForeignKey(
                         name: "FK_WishlistGames_Games_GameId",
                         column: x => x.GameId,
                         principalTable: "Games",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_WishlistGames_Wishlists_WishlistId",
                         column: x => x.WishlistId,
@@ -172,6 +181,11 @@ namespace Gaming_store.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartGames_CartId",
+                table: "CartGames",
+                column: "CartId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartGames_GameId",
@@ -196,9 +210,19 @@ namespace Gaming_store.Migrations
                 column: "GameId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LibraryGames_LibraryId",
+                table: "LibraryGames",
+                column: "LibraryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WishlistGames_GameId",
                 table: "WishlistGames",
                 column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WishlistGames_WishlistId",
+                table: "WishlistGames",
+                column: "WishlistId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Wishlists_UserId",

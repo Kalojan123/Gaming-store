@@ -37,22 +37,14 @@ namespace GamingStore.Controllers
         }
         public async Task<string> RemoveGame(int gameId)
         {
-            Game game = await context.Games.FirstOrDefaultAsync(g => g.Id == gameId);
-            if (game == null)
-            {
-                return "No game found.";
-            }
+            Game game = await context.Games.FirstAsync(g => g.Id == gameId);            
             context.Games.Remove(game);
             await context.SaveChangesAsync();
             return $"Game '{game.Name}' removed successfully.";
         }
         public async Task<string> UpdatePrice(int gameId, decimal newPrice)
         {
-            Game game = await context.Games.FirstOrDefaultAsync(g => g.Id == gameId);
-            if (game == null)
-            {
-                return "No game found.";
-            }
+            Game game = await context.Games.FirstAsync(g => g.Id == gameId);
             game.Price = newPrice;
             await context.SaveChangesAsync();
             return $"Game '{game.Name}' price updated to {newPrice:C}.";

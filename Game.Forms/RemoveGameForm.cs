@@ -20,12 +20,13 @@ namespace Gaming_store.Forms
         {
             InitializeComponent();
             context = new GameContext();
+            controller = new GameController();
         }
 
         private void RemoveGameForm_Load(object sender, EventArgs e)
         {
             numericUpDown1.Minimum = 0;
-            numericUpDown1.Maximum = context.Games.Count() - 1;
+            numericUpDown1.Maximum = context.Games.Count();
         }
 
         private async void button1_Click(object sender, EventArgs e)

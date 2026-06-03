@@ -82,7 +82,7 @@ namespace Gaming_store.Forms
             if (textBox1.Text != null)
             {
                 List<Game> games = new List<Game>();
-                games = context.Games.Where(g => g.Name.Contains(textBox1.Text)).ToList();
+                games = context.Games.Where(g => g.Name.ToLower().StartsWith(textBox1.Text.ToLower())).ToList();
                 if (games.Count == 0)
                 {
                     MessageBox.Show("No games found with that name.");

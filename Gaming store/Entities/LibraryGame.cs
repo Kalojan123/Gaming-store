@@ -8,6 +8,7 @@ namespace Gaming_store.Entities
 {
     public class LibraryGame
     {
+        public int Id { get; set; } 
         public int LibraryId { get; set; }
         public Library Library { get; set; }
         public int GameId { get; set; }

@@ -8,6 +8,7 @@ namespace Gaming_store.Entities
 {
     public class WishlistGame
     {        
+        public int Id { get; set; }
         public int WishlistId { get; set; }
         public Wishlist Wishlist { get; set; }
         public int GameId { get; set; }
