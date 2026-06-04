@@ -2,6 +2,7 @@
 using Gaming_store.Entities;
 using Gaming_store.Enums;
 using GamingStore.Controllers;
+using GamingStore.Forms;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Gaming_store.Forms
 
         private void LogInForm_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -43,7 +44,7 @@ namespace Gaming_store.Forms
             }
             else
             {
-                MessageBox.Show(text, "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(text, "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);               
                 CurrentUser = new User();
                 CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == textBox1.Text);
                 if (CurrentUser.Role == Roles.User)

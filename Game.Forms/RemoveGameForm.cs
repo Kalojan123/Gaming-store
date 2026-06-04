@@ -25,13 +25,15 @@ namespace Gaming_store.Forms
 
         private void RemoveGameForm_Load(object sender, EventArgs e)
         {
-            numericUpDown1.Minimum = 0;
-            numericUpDown1.Maximum = context.Games.Count();
+            numericUpDown1.Minimum = context.Games.Select(g => g.Id).Min();
+            numericUpDown1.Maximum = context.Games.Select(g => g.Id).Max();
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show(await controller.RemoveGame((int)numericUpDown1.Value));
+            numericUpDown1.Minimum = context.Games.Select(g => g.Id).Min();
+            numericUpDown1.Maximum = context.Games.Select(g => g.Id).Max();
         }
 
         private void button3_Click(object sender, EventArgs e)

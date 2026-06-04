@@ -1,4 +1,5 @@
 ﻿using Gaming_store.Forms;
+using GamingStore.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,6 +40,12 @@ namespace Gaming_store.Forms
         private void AdminForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ChangePriceForm changePriceForm = new ChangePriceForm();
+            changePriceForm.ShowDialog();
         }
     }
 }

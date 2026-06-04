@@ -78,7 +78,10 @@ namespace Gaming_store.Forms
             }
             MessageBox.Show(await cartController.AddToCart(LogInForm.CurrentUser.Id, CurrentGame.Id));
             LogInForm.CurrentUser.Cart = context.Carts.First(w => w.UserId == LogInForm.CurrentUser.Id);
-            await wishlistController.RemoveFromWishlist(LogInForm.CurrentUser.Id, CurrentGame.Id);
+            if (await wishlistController.IsInWishlist(LogInForm.CurrentUser.Id, CurrentGame.Id))
+            {
+                await wishlistController.RemoveFromWishlist(LogInForm.CurrentUser.Id, CurrentGame.Id);
+            }
             LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);
         }
     }

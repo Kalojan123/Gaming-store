@@ -27,6 +27,19 @@ namespace Gaming_store.Forms
                 }
             }
             comboBox1.Items.AddRange(Enum.GetNames(typeof(Genres)));
+            if (LogInForm.CurrentUser != null && LogInForm.CurrentUser.Username != "john123")
+            {
+                if(LogInForm.CurrentUser.Wishlist.WishlistsGames.Count == 0)
+                {
+                    ChangePriceForm changePriceForm = new ChangePriceForm();
+                    DialogResult result = changePriceForm.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {                    
+                        MessageBox.Show($"{ChangePriceForm.GameName} is on sale! {ChangePriceForm.GamePrice:C} -> {ChangePriceForm.newGamePrice:C}");
+                    }
+                }
+                
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
