@@ -21,24 +21,52 @@ namespace Gaming_store.Forms
             InitializeComponent();
             context = new GameContext();
             controller = new GameController();
+            RemoveGameForm_Load(this, EventArgs.Empty);
         }
 
         private void RemoveGameForm_Load(object sender, EventArgs e)
         {
-            numericUpDown1.Minimum = context.Games.Select(g => g.Id).Min();
-            numericUpDown1.Maximum = context.Games.Select(g => g.Id).Max();
+            if (!context.Games.Any())
+            {
+                return;
+            }
+            comboBox1.Items.AddRange(context.Games.Select(g => g.Name).ToArray());
+            comboBox1.SelectedIndex = 0;
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(await controller.RemoveGame((int)numericUpDown1.Value));
-            numericUpDown1.Minimum = context.Games.Select(g => g.Id).Min();
-            numericUpDown1.Maximum = context.Games.Select(g => g.Id).Max();
+            if (HandleEmptyCombobox())
+            {
+                return;
+            }
+            MessageBox.Show(await controller.RemoveGame(context.Games.First(g => g.Name == comboBox1.Text).Id));
+            comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(context.Games.Select(g => g.Name).ToArray());
+            if (comboBox1.Items.Count > 0)
+            {
+                comboBox1.SelectedIndex = 0;
+            }
+            else
+            {
+                HandleEmptyCombobox();
+            }
+        }
+        private bool HandleEmptyCombobox()
+        {
+            if (!context.Games.Any())
+            {
+                comboBox1.Items.Clear();
+                comboBox1.Items.Add("There are no games yet!");
+                comboBox1.SelectedIndex = 0;
+                return true;
+            }
+            return false;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Hide();
-        }
+            Close();
+        }        
     }
 }

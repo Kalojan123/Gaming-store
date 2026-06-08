@@ -1,4 +1,5 @@
-﻿using Gaming_store.Forms;
+﻿using Gaming_store.Data;
+using Gaming_store.Forms;
 using GamingStore.Forms;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,11 @@ namespace Gaming_store.Forms
 {
     public partial class AdminForm : Form
     {
+        private GameContext context;
         public AdminForm()
         {
             InitializeComponent();
+            context = new GameContext();
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -27,7 +30,13 @@ namespace Gaming_store.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             RemoveGameForm removeGameForm = new RemoveGameForm();
+            if(!context.Games.Any())
+            {
+                MessageBox.Show("There are no games yet!");
+                return;
+            }
             removeGameForm.ShowDialog();
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -43,8 +52,13 @@ namespace Gaming_store.Forms
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
+        {            
             ChangePriceForm changePriceForm = new ChangePriceForm();
+            if (!context.Games.Any())
+            {
+                MessageBox.Show("There are no games yet!");
+                return;
+            }
             changePriceForm.ShowDialog();
         }
     }

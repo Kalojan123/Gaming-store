@@ -28,27 +28,31 @@ namespace GamingStore.Forms
             GameName = "";
             GamePrice = 0;
             newGamePrice = 0;
-            GameName = context.Games.First(g => g.Id == ((int)numericUpDown1.Value) - 1).Name;
-            GamePrice = context.Games.First(g => g.Id == ((int)numericUpDown1.Value) - 1).Price;            
         }
 
         private void ChangePriceForm_Load(object sender, EventArgs e)
         {
-            numericUpDown1.Minimum = context.Games.Select(g => g.Id).Min();
-            numericUpDown1.Maximum = context.Games.Select(g => g.Id).Max();
+            if (!context.Games.Any())
+            {
+                return;
+            }
+            comboBox1.Items.AddRange(context.Games.Select(g => g.Name).ToArray());
+            comboBox1.SelectedIndex = 0;
+            GameName = comboBox1.Text;
+            GamePrice = context.Games.First(g => g.Name == comboBox1.Text).Price;
         }
 
         private async void button1_Click(object sender, EventArgs e)
-        {
-            decimal price = context.Games.First(g => g.Id == ((int)numericUpDown1.Value - 1)).Price;
+        {            
+            decimal price = context.Games.First(g => g.Name == comboBox1.Text).Price;
             if (((decimal)numericUpDown2.Value) < price)
             {
                 DialogResult result = DialogResult.Yes;                
             }
-            MessageBox.Show(await controller.UpdatePrice((int)numericUpDown1.Value, (decimal)numericUpDown2.Value));
+            MessageBox.Show(await controller.UpdatePrice(context.Games.First(g => g.Name == comboBox1.Text).Id, (decimal)numericUpDown2.Value));
             newGamePrice = (decimal)numericUpDown2.Value;
-            numericUpDown1.Minimum = context.Games.Select(g => g.Id).Min();
-            numericUpDown1.Maximum = context.Games.Select(g => g.Id).Max();
+            comboBox1.Items.AddRange(context.Games.Select(g => g.Name).ToArray());
+            comboBox1.SelectedIndex = 0;
         }
 
         private void button3_Click(object sender, EventArgs e)
