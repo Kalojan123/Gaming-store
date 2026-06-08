@@ -112,7 +112,12 @@ namespace Gaming_store.Forms
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Hide();            
+            Hide();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

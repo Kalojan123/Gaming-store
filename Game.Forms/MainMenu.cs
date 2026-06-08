@@ -27,19 +27,6 @@ namespace Gaming_store.Forms
                 }
             }
             comboBox1.Items.AddRange(Enum.GetNames(typeof(Genres)));
-            if (LogInForm.CurrentUser != null && LogInForm.CurrentUser.Username != "john123")
-            {
-                if(LogInForm.CurrentUser.Wishlist.WishlistsGames.Count == 0)
-                {
-                    ChangePriceForm changePriceForm = new ChangePriceForm();
-                    DialogResult result = changePriceForm.ShowDialog();
-                    if (result == DialogResult.OK)
-                    {                    
-                        MessageBox.Show($"{ChangePriceForm.GameName} is on sale! {ChangePriceForm.GamePrice:C} -> {ChangePriceForm.newGamePrice:C}");
-                    }
-                }
-                
-            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -126,7 +113,7 @@ namespace Gaming_store.Forms
         {
             flowLayoutPanel1.Controls.Clear();            
             List<Game> games = new List<Game>();
-            games = context.Games.Where(g => g.Genre == GenreHelper.GetGenresFromEnumName(comboBox1.SelectedItem.ToString())).ToList();
+            games = context.Games.Where(g => g.Genre == Enum.Parse<Genres>(comboBox1.SelectedItem.ToString())).ToList();
             if (games.Count == 0)
             {
                 MessageBox.Show("No games found with that genre.");
@@ -191,17 +178,12 @@ namespace Gaming_store.Forms
                 MessageBox.Show("Please sign in or sign up to view your cart.");
             }
         }
-        public void ShowDiscount(Game game)
-        {
-            ShowGameDiscount showGameDiscount = new ShowGameDiscount(game);
-            showGameDiscount.Show();
-        }
-
         private void button10_Click(object sender, EventArgs e)
         {
             button1.Visible = true;
             button2.Visible = true;
             button10.Visible = false;
+            label3.Visible = false;
             LogInForm.CurrentUser = null;
         }
 

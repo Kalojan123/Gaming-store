@@ -29,6 +29,7 @@ namespace Gaming_store.Data
         public DbSet<WishlistGame> WishlistGames { get; set; }
         public DbSet<CartGame> CartGames { get; set; }
         public DbSet<LibraryGame> LibraryGames { get; set; }
+        public DbSet<PriceChangeGame> PriceChangeGames { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -91,6 +92,14 @@ namespace Gaming_store.Data
                 lg.HasKey(lg => lg.Id);
                 lg.HasOne(lg => lg.Library).WithMany(l => l.LibrariesGames).HasForeignKey(lg => lg.LibraryId).OnDelete(DeleteBehavior.Cascade);
                 lg.HasOne(lg => lg.Game).WithMany(g => g.LibrariesGames).HasForeignKey(lg => lg.GameId).OnDelete(DeleteBehavior.Cascade);
+            });
+            modelBuilder.Entity<PriceChangeGame>(pcg =>
+            {
+                pcg.HasKey(pcg => pcg.Id);
+                pcg.Property(pcg => pcg.OldPrice).HasColumnType("decimal(5,2)").IsRequired();
+                pcg.Property(pcg => pcg.NewPrice).HasColumnType("decimal(5,2)").IsRequired();
+                pcg.ToTable(pcg => pcg.HasCheckConstraint("PCG_OldPrice_CK", "OldPrice > 0"));
+                pcg.ToTable(pcg => pcg.HasCheckConstraint("PCG_NewPrice_CK", "NewPrice > 0"));
             });
         }
     }

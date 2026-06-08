@@ -142,6 +142,34 @@ namespace Gaming_store.Migrations
                     b.ToTable("LibraryGames");
                 });
 
+            modelBuilder.Entity("Gaming_store.Entities.PriceChangeGame", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GameName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("NewPrice")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<decimal>("OldPrice")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PriceChangeGames", t =>
+                        {
+                            t.HasCheckConstraint("PCG_NewPrice_CK", "NewPrice > 0");
+
+                            t.HasCheckConstraint("PCG_OldPrice_CK", "OldPrice > 0");
+                        });
+                });
+
             modelBuilder.Entity("Gaming_store.Entities.User", b =>
                 {
                     b.Property<int>("Id")

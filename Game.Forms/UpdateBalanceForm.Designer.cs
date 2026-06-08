@@ -96,6 +96,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(800, 450);
+            ControlBox = false;
             Controls.Add(numericUpDown1);
             Controls.Add(button2);
             Controls.Add(button1);

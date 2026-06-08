@@ -81,7 +81,7 @@ namespace Gaming_store.Forms
         {
             flowLayoutPanel1.Controls.Clear();            
             List<Game> games = new List<Game>();
-            games = LogInForm.CurrentUser.Wishlist.WishlistsGames.Select(g => g.Game).Where(g => g.Genre == GenreHelper.GetGenresFromEnumName(comboBox1.SelectedItem.ToString())).ToList();
+            games = LogInForm.CurrentUser.Wishlist.WishlistsGames.Select(g => g.Game).Where(g => g.Genre == Enum.Parse<Genres>(comboBox1.SelectedItem.ToString())).ToList();
             if (games.Count == 0)
             {
                 MessageBox.Show("No games found with that genre.");

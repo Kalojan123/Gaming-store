@@ -44,6 +44,7 @@
             button9 = new Button();
             button10 = new Button();
             button11 = new Button();
+            label3 = new Label();
             SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -260,6 +261,19 @@
             button11.UseVisualStyleBackColor = false;
             button11.Click += button11_Click;
             // 
+            // label3
+            // 
+            label3.BackColor = Color.Orange;
+            label3.BorderStyle = BorderStyle.FixedSingle;
+            label3.Font = new Font("Arial Black", 12F, FontStyle.Bold | FontStyle.Italic);
+            label3.Location = new Point(673, 2);
+            label3.Name = "label3";
+            label3.Size = new Size(236, 45);
+            label3.TabIndex = 15;
+            label3.Text = "Someone's library";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            label3.Visible = false;
+            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -267,6 +281,7 @@
             BackColor = Color.Black;
             ClientSize = new Size(914, 600);
             ControlBox = false;
+            Controls.Add(label3);
             Controls.Add(button11);
             Controls.Add(button10);
             Controls.Add(button8);
@@ -309,5 +324,6 @@
         public Button button1;
         public Button button10;
         public Button button11;
+        public Label label3;
     }
 }

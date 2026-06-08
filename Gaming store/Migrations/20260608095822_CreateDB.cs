@@ -30,6 +30,23 @@ namespace Gaming_store.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PriceChangeGames",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GameName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OldPrice = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
+                    NewPrice = table.Column<decimal>(type: "decimal(5,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PriceChangeGames", x => x.Id);
+                    table.CheckConstraint("PCG_NewPrice_CK", "NewPrice > 0");
+                    table.CheckConstraint("PCG_OldPrice_CK", "OldPrice > 0");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -239,6 +256,9 @@ namespace Gaming_store.Migrations
 
             migrationBuilder.DropTable(
                 name: "LibraryGames");
+
+            migrationBuilder.DropTable(
+                name: "PriceChangeGames");
 
             migrationBuilder.DropTable(
                 name: "WishlistGames");

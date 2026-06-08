@@ -127,6 +127,7 @@
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(151, 28);
             comboBox1.TabIndex = 29;
+            comboBox1.SelectedValueChanged += comboBox1_SelectedValueChanged;
             // 
             // ChangePriceForm
             // 
@@ -134,6 +135,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(914, 600);
+            ControlBox = false;
             Controls.Add(comboBox1);
             Controls.Add(label3);
             Controls.Add(numericUpDown2);

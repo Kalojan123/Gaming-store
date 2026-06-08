@@ -32,7 +32,7 @@ namespace Gaming_store.Forms
 
         private void LogInForm_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -53,8 +53,17 @@ namespace Gaming_store.Forms
                     mainMenu.button1.Visible = false;
                     mainMenu.button2.Visible = false;
                     mainMenu.button10.Visible = true;
+                    mainMenu.label3.Visible = true;
+                    mainMenu.label3.Text = $"Welcome, {CurrentUser.Username}";
                     mainMenu.Show();
                     this.Hide();
+                    while (context.PriceChangeGames.Any())
+                    {
+                        PriceChangeGame pcg = context.PriceChangeGames.OrderByDescending(p => p.Id).First();
+                        MessageBox.Show($"Discount! The price of {pcg.GameName} has changed from {pcg.OldPrice:C} to {pcg.NewPrice:C}.", "Price Change Alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        context.PriceChangeGames.Remove(context.PriceChangeGames.OrderByDescending(p => p.Id).First());
+                        context.SaveChanges();
+                    }
                 }
                 else
                 {

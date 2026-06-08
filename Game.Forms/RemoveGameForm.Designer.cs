@@ -108,6 +108,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(914, 600);
+            ControlBox = false;
             Controls.Add(comboBox1);
             Controls.Add(button3);
             Controls.Add(button1);
