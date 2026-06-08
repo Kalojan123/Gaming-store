@@ -2,6 +2,8 @@
 using Gaming_store.Entities;
 using Gaming_store.Enums;
 using Gaming_store.Forms;
+using GamingStore.Controllers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +28,7 @@ namespace Gaming_store.Forms
         private void CartForm_Load(object sender, EventArgs e)
         {
             label1.Text = $"Welcome to your cart, {LogInForm.CurrentUser.Username}!";
+            label3.Text = $"Total price: ${LogInForm.CurrentUser.Cart.CartsGames.Sum(g => g.Game.Price)}";
             if (LogInForm.CurrentUser.Cart.CartsGames != null)
             {
                 foreach (int gameId in LogInForm.CurrentUser.Cart.CartsGames.Select(g => g.GameId))
@@ -113,6 +116,35 @@ namespace Gaming_store.Forms
         private void button8_Click(object sender, EventArgs e)
         {
             Hide();
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            foreach (Game game in LogInForm.CurrentUser.Cart.CartsGames.Select(g => g.Game))
+            {
+                CartController cart = new CartController();
+                LibraryController library = new LibraryController();
+                string output = await library.AddToLibrary(LogInForm.CurrentUser.Id, game.Id);
+                if (output == $"Insufficient balance for {game.Name}.")
+                {
+                    MessageBox.Show(output);
+                    return;
+                }
+                else if (output == $"Game {game.Name} is already in library.")
+                {
+                    MessageBox.Show(output);
+                    continue;
+                }
+                MessageBox.Show(output);
+                Wishlist wishlist = await context.Wishlists.Include(w => w.WishlistsGames).FirstAsync(w => w.UserId == LogInForm.CurrentUser.Id);
+                if (wishlist.WishlistsGames.Any(wg => wg.GameId == game.Id))
+                {
+                    WishlistController wishlistController = new WishlistController();
+                    await wishlistController.RemoveFromWishlist(LogInForm.CurrentUser.Id, game.Id);
+                }
+                string output2 = await cart.RemoveFromCart(LogInForm.CurrentUser.Id, game.Id);
+                LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);
+            }
         }
     }
 }

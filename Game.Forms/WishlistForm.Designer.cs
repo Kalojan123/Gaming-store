@@ -37,6 +37,7 @@
             label2 = new Label();
             comboBox1 = new ComboBox();
             button8 = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // label1
@@ -139,6 +140,22 @@
             button8.UseVisualStyleBackColor = false;
             button8.Click += button8_Click;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.DimGray;
+            button1.FlatAppearance.MouseDownBackColor = Color.White;
+            button1.FlatAppearance.MouseOverBackColor = Color.White;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Arial Black", 12F, FontStyle.Bold | FontStyle.Italic);
+            button1.Location = new Point(641, 20);
+            button1.Margin = new Padding(3, 4, 3, 4);
+            button1.Name = "button1";
+            button1.Size = new Size(135, 95);
+            button1.TabIndex = 18;
+            button1.Text = "Add all games to cart";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // WishlistForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -146,6 +163,7 @@
             BackColor = Color.Black;
             ClientSize = new Size(800, 451);
             ControlBox = false;
+            Controls.Add(button1);
             Controls.Add(button8);
             Controls.Add(button7);
             Controls.Add(button6);
@@ -173,5 +191,6 @@
         private Label label2;
         private ComboBox comboBox1;
         private Button button8;
+        private Button button1;
     }
 }

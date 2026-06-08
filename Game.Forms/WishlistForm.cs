@@ -2,6 +2,8 @@
 using Gaming_store.Entities;
 using Gaming_store.Enums;
 using Gaming_store.Forms;
+using GamingStore.Controllers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,7 +81,7 @@ namespace Gaming_store.Forms
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            flowLayoutPanel1.Controls.Clear();            
+            flowLayoutPanel1.Controls.Clear();
             List<Game> games = new List<Game>();
             games = LogInForm.CurrentUser.Wishlist.WishlistsGames.Select(g => g.Game).Where(g => g.Genre == Enum.Parse<Genres>(comboBox1.SelectedItem.ToString())).ToList();
             if (games.Count == 0)
@@ -91,7 +93,7 @@ namespace Gaming_store.Forms
             {
                 ShowWishlist showWishlist = new ShowWishlist(game);
                 flowLayoutPanel1.Controls.Add(showWishlist);
-            }            
+            }
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -115,6 +117,25 @@ namespace Gaming_store.Forms
         private void button8_Click(object sender, EventArgs e)
         {
             Hide();
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            foreach (Game game in LogInForm.CurrentUser.Wishlist.WishlistsGames.Select(g => g.Game))
+            {
+                CartController cart = new CartController();
+                WishlistController wishlist = new WishlistController();
+                if (LogInForm.CurrentUser.Cart.CartsGames.Any(wg => wg.GameId == game.Id))
+                {
+                    MessageBox.Show($"Game {game.Name} is already in your cart.");
+                    continue;
+                }
+                string result = await cart.AddToCart(LogInForm.CurrentUser.Id, game.Id);
+                MessageBox.Show(result);
+                result = await wishlist.RemoveFromWishlist(LogInForm.CurrentUser.Id, game.Id);
+                MessageBox.Show(result);
+                LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);
+            }        
         }
     }
 }

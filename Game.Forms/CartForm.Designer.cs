@@ -37,6 +37,8 @@
             label2 = new Label();
             comboBox1 = new ComboBox();
             button8 = new Button();
+            button1 = new Button();
+            label3 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -138,6 +140,34 @@
             button8.UseVisualStyleBackColor = false;
             button8.Click += button8_Click;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.DimGray;
+            button1.FlatAppearance.MouseDownBackColor = Color.White;
+            button1.FlatAppearance.MouseOverBackColor = Color.White;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Arial Black", 12F, FontStyle.Bold | FontStyle.Italic);
+            button1.Location = new Point(616, 82);
+            button1.Margin = new Padding(3, 4, 3, 4);
+            button1.Name = "button1";
+            button1.Size = new Size(170, 44);
+            button1.TabIndex = 18;
+            button1.Text = "Buy all";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
+            // label3
+            // 
+            label3.BackColor = Color.Orange;
+            label3.BorderStyle = BorderStyle.FixedSingle;
+            label3.Font = new Font("Arial Black", 12F, FontStyle.Bold | FontStyle.Italic);
+            label3.Location = new Point(616, 8);
+            label3.Name = "label3";
+            label3.Size = new Size(170, 60);
+            label3.TabIndex = 19;
+            label3.Text = "Total price:";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // CartForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -145,6 +175,8 @@
             BackColor = Color.Black;
             ClientSize = new Size(800, 451);
             ControlBox = false;
+            Controls.Add(label3);
+            Controls.Add(button1);
             Controls.Add(button8);
             Controls.Add(button7);
             Controls.Add(button6);
@@ -172,5 +204,7 @@
         private Label label2;
         private ComboBox comboBox1;
         private Button button8;
+        private Button button1;
+        private Label label3;
     }
 }
