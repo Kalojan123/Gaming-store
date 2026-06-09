@@ -196,7 +196,6 @@
         #endregion
 
         private Label label1;
-        private FlowLayoutPanel flowLayoutPanel1;
         private Button button7;
         private Button button6;
         private Button button5;
@@ -206,5 +205,6 @@
         private Button button8;
         private Button button1;
         private Label label3;
+        public FlowLayoutPanel flowLayoutPanel1;
     }
 }
