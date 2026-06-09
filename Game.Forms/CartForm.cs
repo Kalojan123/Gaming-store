@@ -145,6 +145,15 @@ namespace Gaming_store.Forms
                 string output2 = await cart.RemoveFromCart(LogInForm.CurrentUser.Id, game.Id);
                 LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);
             }
+            flowLayoutPanel1.Controls.Clear();
+            if (LogInForm.CurrentUser.Cart != null)
+            {
+                foreach (Game game in LogInForm.CurrentUser.Cart.CartsGames.Select(g => g.Game))
+                {
+                    ShowCart showCart = new ShowCart(game);
+                    flowLayoutPanel1.Controls.Add(showCart);
+                }
+            }
         }
     }
 }
