@@ -48,10 +48,15 @@ namespace Gaming_store.Forms
                 MessageBox.Show("Please sign in to add games to your wishlist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (await wishlistController.IsInWishlist(LogInForm.CurrentUser.Id,CurrentGame.Id) == false)
+            if (await wishlistController.IsInWishlist(LogInForm.CurrentUser.Id, CurrentGame.Id) == false)
             {
                 MessageBox.Show(await wishlistController.AddToWishlist(LogInForm.CurrentUser.Id, CurrentGame.Id));
-                LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);                
+                if (await cartController.IsInCart(LogInForm.CurrentUser.Id, CurrentGame.Id))
+                { 
+                    await cartController.RemoveFromCart(LogInForm.CurrentUser.Id, CurrentGame.Id);
+                }
+                Hide();
+                LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);                  
             }
             else
             {
@@ -75,13 +80,13 @@ namespace Gaming_store.Forms
             {
                 MessageBox.Show("You have already added this game to your cart.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }
+            }                       
             MessageBox.Show(await cartController.AddToCart(LogInForm.CurrentUser.Id, CurrentGame.Id));
-            LogInForm.CurrentUser.Cart = context.Carts.First(w => w.UserId == LogInForm.CurrentUser.Id);
             if (await wishlistController.IsInWishlist(LogInForm.CurrentUser.Id, CurrentGame.Id))
             {
                 await wishlistController.RemoveFromWishlist(LogInForm.CurrentUser.Id, CurrentGame.Id);
             }
+            Hide();
             LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);
         }
     }

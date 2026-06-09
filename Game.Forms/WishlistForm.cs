@@ -121,29 +121,35 @@ namespace Gaming_store.Forms
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            foreach (Game game in LogInForm.CurrentUser.Wishlist.WishlistsGames.Select(g => g.Game))
+            WishlistController wishlistController = new WishlistController();
+            foreach (ShowWishlist item in flowLayoutPanel1.Controls)
             {
-                CartController cart = new CartController();
-                WishlistController wishlist = new WishlistController();
-                if (LogInForm.CurrentUser.Cart.CartsGames.Any(wg => wg.GameId == game.Id))
-                {
-                    MessageBox.Show($"Game {game.Name} is already in your cart.");
-                    continue;
-                }
-                string result = await cart.AddToCart(LogInForm.CurrentUser.Id, game.Id);                
-                result = await wishlist.RemoveFromWishlist(LogInForm.CurrentUser.Id, game.Id);                
-                LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);
-                
-            }       
-            flowLayoutPanel1.Controls.Clear();
-            if (LogInForm.CurrentUser.Wishlist != null)
-            {
-                foreach (Game game2 in LogInForm.CurrentUser.Wishlist.WishlistsGames.Select(g => g.Game))
-                {
-                    ShowWishlist showWishlist = new ShowWishlist(game2);
-                    flowLayoutPanel1.Controls.Add(showWishlist);
-                }
+                wishlistController.AddToWishlist(LogInForm.CurrentUser.Id, item.currentGame.Id);
             }
+            flowLayoutPanel1.Controls.Clear();
         }
     }
 }
+//foreach (Game game in LogInForm.CurrentUser.Wishlist.WishlistsGames.Select(g => g.Game))
+//{
+//    CartController cart = new CartController();
+//    WishlistController wishlist = new WishlistController();
+//    if (LogInForm.CurrentUser.Cart.CartsGames.Any(wg => wg.GameId == game.Id))
+//    {
+//        MessageBox.Show($"Game {game.Name} is already in your cart.");
+//        continue;
+//    }
+//    await cart.AddToCart(LogInForm.CurrentUser.Id, game.Id);
+//    await wishlist.RemoveFromWishlist(LogInForm.CurrentUser.Id, game.Id);
+//    LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);
+
+//}
+//flowLayoutPanel1.Controls.Clear();
+//if (LogInForm.CurrentUser.Wishlist != null)
+//{
+//    foreach (Game game2 in LogInForm.CurrentUser.Wishlist.WishlistsGames.Select(g => g.Game))
+//    {
+//        ShowWishlist showWishlist = new ShowWishlist(game2);
+//        flowLayoutPanel1.Controls.Add(showWishlist);
+//    }
+//}

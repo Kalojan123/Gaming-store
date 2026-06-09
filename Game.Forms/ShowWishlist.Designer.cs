@@ -48,7 +48,7 @@
             button1.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button1.Location = new Point(0, 85);
             button1.Name = "button1";
-            button1.Size = new Size(80, 45);
+            button1.Size = new Size(80, 49);
             button1.TabIndex = 1;
             button1.Text = "Add to cart";
             button1.TextAlign = ContentAlignment.TopCenter;

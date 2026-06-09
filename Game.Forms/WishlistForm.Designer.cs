@@ -191,6 +191,6 @@
         private ComboBox comboBox1;
         private Button button8;
         private Button button1;
-        private FlowLayoutPanel flowLayoutPanel1;
+        public FlowLayoutPanel flowLayoutPanel1;
     }
 }

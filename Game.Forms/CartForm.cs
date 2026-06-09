@@ -125,24 +125,23 @@ namespace Gaming_store.Forms
                 CartController cart = new CartController();
                 LibraryController library = new LibraryController();
                 string output = await library.AddToLibrary(LogInForm.CurrentUser.Id, game.Id);
-                if (output == $"Insufficient balance for {game.Name}.")
+                if (output == $"Insufficient balance.")
                 {
-                    MessageBox.Show(output);
+                    MessageBox.Show($"Insufficient balance for {game.Name}.");
                     return;
                 }
-                else if (output == $"Game {game.Name} is already in library.")
+                else if (output == $"Game is already in library.")
                 {
-                    MessageBox.Show(output);
+                    MessageBox.Show($"Game {game.Name} is already in library.");
                     continue;
                 }
                 MessageBox.Show(output);
-                Wishlist wishlist = await context.Wishlists.Include(w => w.WishlistsGames).FirstAsync(w => w.UserId == LogInForm.CurrentUser.Id);
-                if (wishlist.WishlistsGames.Any(wg => wg.GameId == game.Id))
-                {
-                    WishlistController wishlistController = new WishlistController();
+                WishlistController wishlistController = new WishlistController();
+                if (await wishlistController.IsInWishlist(LogInForm.CurrentUser.Id, game.Id))
+                {                    
                     await wishlistController.RemoveFromWishlist(LogInForm.CurrentUser.Id, game.Id);
                 }
-                string output2 = await cart.RemoveFromCart(LogInForm.CurrentUser.Id, game.Id);
+                await cart.RemoveFromCart(LogInForm.CurrentUser.Id, game.Id);
                 LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);
             }
             flowLayoutPanel1.Controls.Clear();

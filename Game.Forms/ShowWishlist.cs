@@ -22,7 +22,7 @@ namespace Gaming_store.Forms
     {
         private Game game;
         private GameContext context;
-        public static Game currentGame { get; set; }
+        public Game currentGame { get; set; }
         public ShowWishlist(Game Game)
         {
             InitializeComponent();
@@ -53,9 +53,18 @@ namespace Gaming_store.Forms
             }
             string result = await cart.AddToCart(LogInForm.CurrentUser.Id, currentGame.Id);
             MessageBox.Show(result);
-            result = await wishlist.RemoveFromWishlist(LogInForm.CurrentUser.Id, currentGame.Id);
-            MessageBox.Show(result);
+            await wishlist.RemoveFromWishlist(LogInForm.CurrentUser.Id, currentGame.Id);            
             LogInForm.CurrentUser = context.Users.Include(u => u.Wishlist).ThenInclude(u => u.WishlistsGames).ThenInclude(u => u.Game).Include(u => u.Cart).ThenInclude(u => u.CartsGames).ThenInclude(u => u.Game).Include(u => u.Library).ThenInclude(u => u.LibrariesGames).ThenInclude(u => u.Game).First(u => u.Username == LogInForm.CurrentUser.Username);
+            WishlistForm wishlistForm = new WishlistForm();
+            wishlistForm.flowLayoutPanel1.Controls.Clear();
+            if (LogInForm.CurrentUser.Wishlist != null)
+            {
+                foreach (Game game2 in LogInForm.CurrentUser.Wishlist.WishlistsGames.Select(g => g.Game))
+                {
+                    ShowWishlist showWishlist = new ShowWishlist(game2);
+                    wishlistForm.flowLayoutPanel1.Controls.Add(showWishlist);
+                }
+            }
         }
 
         private void ShowWishlist_Load(object sender, EventArgs e)
