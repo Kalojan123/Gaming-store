@@ -199,6 +199,11 @@ namespace Gaming_store.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Balance", "Email", "Password", "Role", "Username" },
+                values: new object[] { 1, 100m, "john@gmail.com", "pass123", "Admin", "john123" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CartGames_CartId",
                 table: "CartGames",

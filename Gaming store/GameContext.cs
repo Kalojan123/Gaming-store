@@ -1,4 +1,5 @@
 ﻿using Gaming_store.Entities;
+using Gaming_store.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -51,7 +52,16 @@ namespace Gaming_store.Data
                 u.Property(u => u.Email).IsUnicode().IsRequired().HasMaxLength(50);
                 u.Property(u => u.Balance).HasColumnType("decimal(10,2)");  
                 u.Property(u => u.Role).IsRequired().HasConversion<string>();
-                u.ToTable(u => u.HasCheckConstraint("User_Balance_CK", "[Balance] >= 0"));  
+                u.ToTable(u => u.HasCheckConstraint("User_Balance_CK", "[Balance] >= 0"));
+                u.HasData(new User 
+                {
+                    Id = 1,
+                    Username = "john123",
+                    Password = "pass123",
+                    Email = "john@gmail.com",
+                    Balance = 100,
+                    Role = Roles.Admin
+                });
             });
             modelBuilder.Entity<Game>(g =>
             {

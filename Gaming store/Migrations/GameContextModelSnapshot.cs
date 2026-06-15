@@ -209,6 +209,17 @@ namespace Gaming_store.Migrations
                         {
                             t.HasCheckConstraint("User_Balance_CK", "[Balance] >= 0");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Balance = 100m,
+                            Email = "john@gmail.com",
+                            Password = "pass123",
+                            Role = "Admin",
+                            Username = "john123"
+                        });
                 });
 
             modelBuilder.Entity("Gaming_store.Entities.Wishlist", b =>

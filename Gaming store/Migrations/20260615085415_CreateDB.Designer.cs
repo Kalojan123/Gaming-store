@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gaming_store.Migrations
 {
     [DbContext(typeof(GameContext))]
-    [Migration("20260608095822_CreateDB")]
+    [Migration("20260615085415_CreateDB")]
     partial class CreateDB
     {
         /// <inheritdoc />
@@ -211,6 +211,17 @@ namespace Gaming_store.Migrations
                     b.ToTable("Users", t =>
                         {
                             t.HasCheckConstraint("User_Balance_CK", "[Balance] >= 0");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Balance = 100m,
+                            Email = "john@gmail.com",
+                            Password = "pass123",
+                            Role = "Admin",
+                            Username = "john123"
                         });
                 });
 

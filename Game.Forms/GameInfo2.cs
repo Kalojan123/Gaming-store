@@ -48,14 +48,14 @@ namespace Gaming_store.Forms
         }
         private async void button1_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(textBox1.Text) && !ImagesAreEqual(pictureBox1.Image,Resources.Rk8hwA80))
+            if (!string.IsNullOrWhiteSpace(textBox1.Text) && !ImagesAreEqual(pictureBox1.Image,Resources.Rk8hwA80) && numericUpDown1.Value != (decimal)0.01)
             {
                 MessageBox.Show(await gameController.AddGame(textBox1.Text, Enum.Parse<Genres>(comboBox1.Text), numericUpDown1.Value, ImageHandeler.ImageToByteArray((Bitmap)pictureBox1.Image),DateOnly.FromDateTime(dateTimePicker1.Value.Date)));
                 Hide();
             }
             else
             {
-                MessageBox.Show("Please enter a valid game name or put a valid picture.");
+                MessageBox.Show("Please enter a valid game name or put a valid picture or set a price!");
             }
         }
 
