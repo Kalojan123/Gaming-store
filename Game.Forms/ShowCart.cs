@@ -73,6 +73,7 @@ namespace Gaming_store.Forms
                     cartForm.flowLayoutPanel1.Controls.Add(showCart);
                 }
             }
+            cartForm.label3.Text = $"Total price: ${LogInForm.CurrentUser.Cart.CartsGames.Sum(g => g.Game.Price)}";
         }
     }
 }

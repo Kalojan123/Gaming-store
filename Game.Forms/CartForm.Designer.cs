@@ -167,6 +167,7 @@
             label3.TabIndex = 19;
             label3.Text = "Total price:";
             label3.TextAlign = ContentAlignment.MiddleCenter;
+            label3.Click += label3_Click;
             // 
             // CartForm
             // 
@@ -204,7 +205,7 @@
         private ComboBox comboBox1;
         private Button button8;
         private Button button1;
-        private Label label3;
         public FlowLayoutPanel flowLayoutPanel1;
+        public Label label3;
     }
 }

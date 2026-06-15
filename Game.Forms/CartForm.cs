@@ -138,7 +138,7 @@ namespace Gaming_store.Forms
                 MessageBox.Show(output);
                 WishlistController wishlistController = new WishlistController();
                 if (await wishlistController.IsInWishlist(LogInForm.CurrentUser.Id, game.Id))
-                {                    
+                {
                     await wishlistController.RemoveFromWishlist(LogInForm.CurrentUser.Id, game.Id);
                 }
                 await cart.RemoveFromCart(LogInForm.CurrentUser.Id, game.Id);
@@ -153,6 +153,12 @@ namespace Gaming_store.Forms
                     flowLayoutPanel1.Controls.Add(showCart);
                 }
             }
+            label3.Text = $"Total price: ${LogInForm.CurrentUser.Cart.CartsGames.Sum(g => g.Game.Price)}";
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
